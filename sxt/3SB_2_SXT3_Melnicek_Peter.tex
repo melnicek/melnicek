@@ -1,0 +1,307 @@
+\documentclass[slovak]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage{graphicx}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{}
+
+\begin{document}
+  
+  \pagenumbering{gobble}
+  \includegraphics[width=0.9\linewidth]{images/"00".png}
+
+  \newpage
+  \pagenumbering{arabic}
+  \tableofcontents
+
+  \newpage
+  \centering
+  \section{Inštalácia a nastavenie VirtualBoxu}
+  \subsection{Na stranke www.virtualbox.org stiahneme a spustime instalator virtualboxu}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-10-24 13-39-05".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 12-39-29".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 12-40-13".png}
+  \subsection{Vsetky checkboxy nechame zaskrtnute a pokrecujeme s next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 12-40-45".png}
+  \subsection{Yes}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 12-41-17".png}
+  \subsection{Install}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 12-41-39".png}
+  \subsection{Chceme zapnut virtualbox a klikneme na Finish}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 12-43-02".png}
+  \subsection{File > Preferences}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-10-50".png}
+  \subsection{Update}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-11-19".png}
+  \subsection{Vypneme updaty}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-11-52".png}
+  \subsection{Pridame novy NatNetwork}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-12-29".png}
+
+  \newpage
+  \section{Inštalácia Windows 10}
+  \subsection{Klikneme na 'New'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-19-22".png}
+  \subsection{Nastavime vsetko podla obrazka a pokracujeme s 'Create'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-21-44".png}
+  \subsection{Nastavime vsetko podla obrazka a pokracujeme s 'Create'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-22-29".png}
+  \subsection{Klikneme 'Settings' na nasej novo vytvorenej VM}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-23-19".png}
+  \subsection{Nastavime vyznacene polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-23-54".png}
+  \subsection{Nastavime vyznacene polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-24-16".png}
+  \subsection{Nastavime vyznacene polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-24-39".png}
+  \subsection{Pridame instalacny disk Windows 10}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-25-36".png}
+  \subsection{Pridame network adapter}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-26-28".png}
+  \subsection{Aktivujeme USB 3.0}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-26-40".png}
+  \subsection{Vytvorime Shared Folder}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-29-28".png}
+  \subsection{Auto-mount}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-29-07".png}
+  \subsection{Spustime VM pomocou 'Start' tlacitka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-29-57".png}
+  \subsection{Nastavime podla obrazka a klikneme 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-31-35".png}
+  \subsection{Klikneme 'Install now'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-31-54".png}
+  \subsection{Zadame licencny kluc a klikneme 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-36-54".png}
+  \subsection{Precitame a akceptujeme licencne podmienky a klikneme 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-38-45".png}
+  \subsection{Pokracujeme s 'Custom Install'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-39-17".png}
+  \subsection{Klikneme na 'New', vytvoria sa nam 2 particie a pokracujeme s 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-39-56".png}
+  \subsection{Vyberieme si nas region a klikneme 'Yes'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-46-15".png}
+  \subsection{Vyberieme si nas oblubeny layout klavesnice -> 'Yes'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-47-55".png}
+  \subsection{Vyberieme si moznost 'Domain join instead'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-51-47".png}
+  \subsection{Vytvorime uzivatelske meno v tvare 'StudentX' a pokracujeme 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-52-04".png}
+  \subsection{Vytvorime si heslo, najlepsie 'password'(ak sa nam niekto chce dostat do pocitaca tak sa ja dostane, silnejsie heslo ho vacsinou nezastavi) -> 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-52-22".png}
+  \subsection{Vyberieme si bezpecnostnu otazku a odpovieme na nu}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-53-00".png}
+  \subsection{Vyberieme si bezpecnostnu otazku a odpovieme na nu}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-53-18".png}
+  \subsection{Vyberieme si bezpecnostnu otazku a odpovieme na nu (Microsoft sa nam snazi co najviac zneprijemnit vytvaranie lokalneho konta a nie ich online uctu)}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-53-34".png}
+  \subsection{Nechceme nic dat Microsoftu -> 'Accept'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-53-56".png}
+  \subsection{Nechceme nic dat Microsoftu -> 'Accept'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-54-10".png}
+  \subsection{Nechceme nic dat Microsoftu -> 'Accept'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-54-25".png}
+  \subsection{Nechceme nic dat Microsoftu -> 'Accept'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-54-40".png}
+  \subsection{Nechceme nic dat Microsoftu -> 'Accept'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-54-54".png}
+  \subsection{Nechceme nic dat Microsoftu -> 'Accept'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-55-14".png}
+  \subsection{Nechceme nic dat Microsoftu -> 'Accept'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-55-27".png}
+  \subsection{Otvorime ponuku Start}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-57-19".png}
+  \subsection{Vyhladame 'Computer Management'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-57-57".png}
+  \subsection{Aktivujeme ucet 'Administrator'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 13-58-52".png}
+  \subsection{Vytvorime heslo pre ucet Administrator}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 14-13-22".png}
+  \subsection{'Proceed'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 14-13-43".png}
+  \subsection{'OK'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-07 14-14-03".png}
+  \subsection{Vyhladame a pravym klikneme na This PC > Properties(okej tie cervene ramceky ma uz prestali bavit)}
+  \includegraphics[width=0.7\linewidth]{images/thispc>properties.png}
+  \subsection{'Advanced system settings'}
+  \includegraphics[width=0.7\linewidth]{images/advancedSystemSettings.png}
+  \subsection{Nastavime computer description vo formate StudentX}
+  \includegraphics[width=0.7\linewidth]{images/computerDescription.png}
+  \subsection{V ponuke Start vyhladame program Services}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-10 15-45-34".png}
+  \subsection{Stopneme 'Windows update'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-10 15-46-28".png}
+  \subsection{Pridame a spustime disk Guest Additions}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-10 15-47-51".png}
+  \subsection{Install}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-10 15-48-18".png}
+  \subsection{Finish}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-10 15-48-52".png}
+
+  \newpage
+  \section{Inštalácia Windows Server 2012 EN R2}
+  \subsection{Nastavime polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-32-36".png}
+  \subsection{Nastavime polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-35-42".png}
+  \subsection{Otvorime 'Settings' novo vytvorenej VM}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-36-52".png}
+  \subsection{Nastavime polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-37-55".png}
+  \subsection{Nastavime polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-38-19".png}
+  \subsection{Nastavime polozky podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-38-39".png}
+  \subsection{Vlozime instalacny disk Windows 2016}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-39-23".png}
+  \subsection{Pridame network adapter}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-39-45".png}
+  \subsection{Spustime stlacenim 'Start' nasu VM}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-36-52".png}
+  \subsection{Podla obrazka a 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-40-48".png}
+  \subsection{'Install now'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-41-01".png}
+  \subsection{'I don't have a product key}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-41-35".png}
+  \subsection{Standard (desktop experience) -> 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-42-09".png}
+  \subsection{Precitat a ak suhlasime tak dame fajku a pokracujeme s -> 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-42-18".png}
+  \subsection{'Custom'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-42-36".png}
+  \subsection{'New' -> 'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-42-54".png}
+  \subsection{Silne heslo}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-48-37".png}
+  \subsection{'Host + Delete', Host = pravy ctrl}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-49-57".png}
+  \subsection{Prihlasime sa}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-50-22".png}
+  \subsection{Klikneme na 'Not activated'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-51-36".png}
+  \subsection{Vlozime nas product key}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-52-01".png}
+  \subsection{'Next'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-53-58".png}
+  \subsection{Nas server je aktivoany :D}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-14 12-56-56".png}
+
+  \newpage
+  \section{Inštalácia Active Directory v Systéme Windows Server 2012}
+  \subsection{Add roles and features}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-55-42".png}
+  \subsection{next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-10-09".png}
+  \subsection{next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-10-46".png}
+  \subsection{network settings}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-13-12".png}
+  \subsection{Properties}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-13-42".png}
+  \subsection{Ethernet}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-14-00".png}
+  \subsection{IPv4}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-14-13".png}
+  \subsection{Nastavime podla obrazka}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-14-59".png}
+  \subsection{Next a zaskrtneme active directoty}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-17-22".png}
+  \subsection{Po instalovani 'close'}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-11-28 13-23-09".png}
+  
+  
+  
+  \newpage
+  \section{Pridanie Role Servera DNS}
+  \subsection{Add roles and features}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-55-42".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-21-17".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-21-29".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-21-45".png}
+  \subsection{ADDS}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-22-33".png}
+  \subsection{ADD FEATURES}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-23-22".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-23-32".png}
+  \subsection{Install}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-24-13".png}
+  \subsection{Close}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-24-51".png}
+  \subsection{Promote this server}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-26-48".png}
+  \subsection{Root domain name SPSEV.local}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-28-11".png}
+  \subsection{Nastavime silne heslo}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-29-52".png}
+  \subsection{Spsev}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-30-25".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-30-58".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-31-10".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-31-25".png}
+  \subsection{Install}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-31-44".png}
+  \subsection{Pockalte na restart}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-33-20".png}
+  
+
+  \newpage
+  \section{Pridanie Role Servera DHCP}
+  \subsection{Prihlasime sa so starym heslom}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-51-32".png}
+  \subsection{OK}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-52-14".png}
+  \subsection{Zadame nove heslo}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-52-45".png}
+  \subsection{Aha active directory aj dns uz je funkcne}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-55-15".png}
+  \subsection{Dashboard > add roles and features}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-55-42".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-55-53".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-56-55".png}
+  \subsection{DHCP Server}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-57-15".png}
+  \subsection{Add features}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-57-26".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-57-35".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-57-53".png}
+  \subsection{Install}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-58-06".png}
+  \subsection{Complete dhcp configuration}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-58-54".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-59-16".png}
+  \subsection{Next}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 14-59-34".png}
+  \subsection{Commit}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 15-00-09".png}
+  \subsection{Close}
+  \includegraphics[width=0.7\linewidth]{images/"Screenshot from 2018-12-06 15-00-35".png}
+
+  \newpage
+  \section{Zaradenie Pracovnej Stanice do Domény}
+
+\end{document}
