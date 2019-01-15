@@ -1,0 +1,17 @@
+int fa0/0.10
+standby 1 ip 192.168.10.254
+standby 1 priority 150
+standby 1 preempt
+int fa0/0.20
+standby 2 ip 192.168.20.254
+standby 2 priority 50
+standby 2 preempt
+
+router ospf 1
+	network 192.168.10.0 0.0.0.255 area 0
+	network 192.168.20.0 0.0.0.255 area 0
+	network 10.0.0.0 0.0.0.3 area 0
+
+int se0/0/0
+	ip add 10.0.0.2 255.255.255.252
+	no sh

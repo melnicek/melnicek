@@ -1,0 +1,21 @@
+ciscoc
+en
+conf t
+int range fa0/21 - 22
+channel-group 3 mode desirable
+exit
+int port-channel 3
+switchport mode trunk 
+switchpor trunk native vlan 99
+
+int range fa0/23-24
+channel-group 1 mode active
+exit
+int port-channel 1
+switchport mode trunk
+switchpor trunk native vlan 99
+exit
+
+int vlan 99 
+no sh
+exit
