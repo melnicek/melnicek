@@ -17,5 +17,7 @@ switchpor trunk native vlan 99
 exit
 
 int vlan 99
+ip add 10.9.9.3 255.255.255.240
+desc Manazment
 no sh
 exit

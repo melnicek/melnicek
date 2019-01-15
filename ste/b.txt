@@ -1,4 +1,17 @@
 int fa0/0.10
+encapsulation dot1q 10
+exit
+int fa0/0.20
+encapsulation dot1q 20
+int fa0/0.99
+encapsulation dot1q 99 native
+exit
+int vlan 99
+descp desc Manazment
+ip add 10.9.9.4 255.255.255.240
+exit
+
+int fa0/0.10
 standby 1 ip 192.168.10.254
 standby 1 priority 150
 standby 1 preempt
