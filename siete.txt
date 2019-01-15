@@ -1,0 +1,265 @@
+
+--------------------------------|
+PC ADMIN do Fa0/19 zapojit!	|	
+--------------------------------|
+
+SWSTOP
+------------
+enable
+conf t
+hostname STOP
+banner motd #IBA autorizovany pristup#
+line con 0
+pass ciscoc
+login
+logging synchronous 
+exit
+line vty 0 15
+pass ciscot
+login
+logging synchronous 
+transport input all
+exit
+enable password ciscoe
+service password-encryption
+no ip domain-lookup
+ip default-gateway 192.168.9.241
+vlan 9
+name ADMIN
+exit
+vlan 66
+name LETO
+exit
+vlan 101
+name ZIMA
+exit
+vlan 999
+name NULL
+exit
+interface range g0/1-2
+switchport mode trunk
+switchport trunk allowed vlan all
+switchport trunk native vlan 9
+exit
+interface range fa0/1-2
+switchport mode access 
+switchport access vlan 66
+exit
+interface range fa0/10-11
+switchport mode access 
+switchport access vlan 101
+exit
+interface range fa0/3-9
+switchport mode access 
+switchport access vlan 999
+exit
+interface range fa0/12-24
+switchport mode access 
+switchport access vlan 999
+exit
+int fa0/19
+switchport mode access 
+switchport access vlan 9
+exit
+spanning-tree vlan 9,66,101 root primary
+spanning-tree mode rapid-pvst
+spanning-tree portfast default 
+spanning-tree vlan 9,66,101 priority 8192
+spanning-tree portfast default
+int vlan 9
+ip add 192.168.9.250 255.255.255.240
+exit
+int fa0/1
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+exit
+int fa0/11
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+exit
+int fa0/19
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+exit
+------------------------------------------
+S3SA
+-------------------------------------------
+conf t
+hostname S3SA
+vlan 9
+name ADMIN
+exit
+vlan 66
+name LETO
+exit
+vlan 101
+name ZIMA
+exit
+vlan 999
+name NULL
+exit
+interface g0/1
+switchport mode trunk
+switchport trunk allowed vlan all
+switchport trunk native vlan 9
+exit
+interface range fa0/1-20
+switchport mode trunk 
+switchport trunk allowed vlan 999
+exit
+interface fa0/24
+switchport mode trunk
+exit
+ip default-gateway 192.168.9.241
+int vlan 9
+ip add 192.168.9.251 255.255.255.240
+exit
+spanning-tree mode rapid-pvst
+spanning-tree portfast default
+interface range fa0/21-23
+channel-group 5 mode desirable
+exit
+interface port-channel 5
+switchport mode trunk
+switchport trunk native vlan 9
+exit
+--------------------------------------------
+S3SB
+--------------------------------------------
+conf t
+hostname S3SB
+vlan 9
+name ADMIN
+exit
+vlan 66
+name LETO
+exit
+vlan 101
+name ZIMA
+exit
+vlan 999
+name NULL
+exit
+interface g0/2
+switchport mode trunk
+switchport trunk allowed vlan all
+switchport trunk native vlan 9
+exit
+interface fa0/24
+switchport mode trunk
+exit
+interface range fa0/1-20
+switchport mode trunk 
+switchport trunk allowed vlan 9
+exit
+ip default-gateway 192.168.9.241
+int vlan 9
+ip add 192.168.9.252 255.255.255.240
+exit
+spanning-tree mode rapid-pvst
+spanning-tree portfast default
+interface range fa0/21-23
+channel-group 6 mode desirable
+exit
+interface port-channel 6
+switchport mode trunk
+switchport trunk native vlan 9
+exit
+
+-------------------------------------------
+R3SA
+-------------------------------------------
+conf t
+hostname R3SA
+int s0/0/0
+ip add 10.10.10.2 255.255.255.252
+no sh
+exit
+int fa0/0
+no sh
+exit
+int fa0/0.9
+encapsulation dot1q 9 native
+ip add 192.168.9.242 255.255.255.240
+exit
+int fa0/0.101
+encapsulation dot1Q 101
+ip add 172.16.96.1 255.255.248.0
+exit
+int fa0/0.66
+encapsulation dot1Q 66
+ip add 172.31.66.1 255.255.255.0
+exit
+router rip
+version 2
+network 192.168.9.240
+network 172.31.66.0
+network 172.16.96.0
+network 10.10.10.0
+no auto-summary
+exit
+int fa0/0.66
+standby 66 ip 172.31.66.3
+standby 66 priority 100
+standby preempt 
+exit
+int fa0/0.9
+standby 9 ip 192.168.9.241
+standby 9 priority 100
+standby preempt 
+exit
+int fa0/0.101
+standby 101 ip 172.16.103.254
+standby 101 priority 200
+standby preempt 
+exit
+-------------------------------------------
+R3SB
+-------------------------------------------
+conf t
+hostname R3SB
+int s0/0/1
+ip add 10.10.11.2 255.255.255.252
+no sh
+exit
+int fa0/0
+no sh
+exit
+int fa0/0.9
+encapsulation dot1Q 9
+ip add 192.168.9.243 255.255.255.240
+exit
+int fa0/0.101
+encapsulation dot1Q 101
+ip add 172.16.96.2 255.255.248.0
+exit
+int fa0/0.66
+encapsulation dot1Q 66
+ip add 172.31.66.2 255.255.255.0
+exit
+router rip
+version 2
+network 192.168.9.240
+network 172.31.66.0
+network 172.16.96.0
+network 10.10.11.0
+no auto-summary
+exit
+int fa0/0.66
+standby 66 ip 172.31.66.3
+standby 66 priority 200
+standby preempt 
+exit
+int fa0/0.9
+standby 9 ip 192.168.9.241
+standby 9 priority 200
+standby preempt 
+exit
+int fa0/0.101
+standby 101 ip 172.16.103.254
+standby 101 priority 100
+standby preempt 
+exit
