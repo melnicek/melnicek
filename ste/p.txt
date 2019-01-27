@@ -1,3 +1,0 @@
-default-gateway 192.168.10.254
-
-ping 1.1.1.1
