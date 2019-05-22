@@ -1,0 +1,1 @@
+padbuster http://docker.hackthebox.eu:54100/profile.php tIryfRG7huZEFKfmpHFr42MiGswt%2F8L1YEpcThLu8tYr5uUixlZWmA%3D%3D 8 --cookie "PHPSESSID=fai6svmg1duhqat87jvu349n42;iknowmag1k=tIryfRG7huZEFKfmpHFr42MiGswt%2F8L1YEpcThLu8tYr5uUixlZWmA%3D%3D"
