@@ -284,7 +284,7 @@ var answers = ["OSPF",
 "176",
 "It scales well in both small and large networks.",
 "ieee"];
-var option = document.getElementsByClassName("ai-option");
+var option = document.getElementsByClassName("mattext"); //ai-option
 for(i = 0;i<option.length;i++) {
   for(j = 0;j<answers.length;j++) {
     if(option[i].innerHTML.replace("<b>","").replace("</b>","")==answers[j]){
