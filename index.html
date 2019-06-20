@@ -1,353 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Easy on eyes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-    
-<body style="background-color:#000000;color:#ffffff">
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>melnicek.xyz</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!--<center><pre> 
-                     _           _                 _                  _   _     _               _           _         
-                    | |         (_)               | |                (_) | |   | |             | |         (_)        
-  _ __ ___     ___  | |  _ __    _    ___    ___  | | __       __ _   _  | |_  | |__    _   _  | |__        _    ___  
- | '_ ` _ \   / _ \ | | | '_ \  | |  / __|  / _ \ | |/ /      / _` | | | | __| | '_ \  | | | | | '_ \      | |  / _ \ 
- | | | | | | |  __/ | | | | | | | | | (__  |  __/ |   <   _  | (_| | | | | |_  | | | | | |_| | | |_) |  _  | | | (_) |
- |_| |_| |_|  \___| |_| |_| |_| |_|  \___|  \___| |_|\_\ (_)  \__, | |_|  \__| |_| |_|  \__,_| |_.__/  (_) |_|  \___/ 
-                                                               __/ |                                                  
-                                                              |___/                                                   
-  
-var answers = ["OSPF",
-"access",
-"show cdp neighbors",
-"The VTP databases will remain unchanged in all switches with the exception of the newly added switch.",
-"Manually add the VLAN to the VLAN database of the VTP servers.",
-"dynamic desirable – dynamic desirable",
-"dynamic desirable – dynamic auto",
-"dynamic desirable – trunk",
-"VLAN configuration",
-"root bridge",
-"Rapid PVST+",
-"RSTP",
-"The bridge priority of Switch_2 has been lowered to a predefined value to become the root bridge.",
-"EtherChannel",
-"Configuring the EtherChannel interface provides consistency in the configuration of the physical links.",
-"Spanning Tree Protocol views the physical links in an EtherChannel as one logical connection.",
-"port channel",
-"passive",
-"OSPF",
-"IS-IS",
-"The router will load balance and forward packets to both R1 and R3.",
-"They send their routing tables to directly connected neighbors.",
-"The time it takes a router within a network to forward routing information.",
-"Shortest Path First calculations",
-"bandwidth",
-"link type",
-"EIGRP supports routing different network layer protocols whereas OSPF supports routing only IP-based protocols.",
-"RTP",
-"the lowest configured bandwidth of any interface along the route",
-"The command redistribute static has not been issued on R1.",
-"A static default route was configured on this router.",
-"ip bandwidth-percent eigrp 100 8",
-"the router-id rid command",
-"OSPF advertisements will include the network on the interface with the IPv4 address 192.168.10.1.",
-"The two routers must include the inter-router link network in an OSPFv2 network command.",
-"The OSPF hello or dead timers on each router must match.",
-"The link interface subnet masks must match.",
-"ASBR",
-"injecting type 3 LSAs into an area",
-"router configuration mode",
-"R3 is DR for segment A.",
-"R3 is BDR for segment B.",
-"R5 is DR for segment B.",
-"by receiving an update from another OSPF router that has the default-information originate command configured",
-"show ip ospf neighbor",
-"failure domain",
-"rack unit",
-"configuring or deleting a VLAN or creating a VLAN name",
-"In the default VTP mode, VLANs can be created and modified on a switch.",
-"Switches in VTP server mode store VLANs in the vlan.dat database.",
-"VTP updates are exchanged across trunk links only.",
-"It holds the VLAN database.",
-"Spanning Tree Protocol",
-"28672",
-"the path cost",
-"listening",
-"blocking",
-"disabled",
-"grouping multiple physical ports to increase bandwidth between two switches",
-"interface range GigabitEthernet 0/4 – 5",
-"GLBP allows load balancing between routers.",
-"The remaining two interfaces continue to load balance traffic.",
-"on",
-"PAgP",
-"discontiguous network",
-"triggered bounded update",
-"the link router interface IP address and subnet mask",
-"the type of network link",
-"the cost of that link",
-"if the router no longer receives hello packets",
-"establishes neighbor adjacencies",
-"uses the Reliable Transport Protocol",
-"supports equal and unequal cost load balancing",
-"route different Layer 3 protocols",
-"network 172.16.23.64 0.0.0.63",
-"router(config)# ipv6 route ::/0 s0/0/0",
-"EIGRP",
-"Routers send triggered updates in response to a change.",
-"Routers create a topology of the network by using information from other routers.",
-"OSPF will remove that neighbor from the router link-state database.",
-"It tells the router which interface to turn on for the OSPF routing process.",
-"A lower cost indicates a better path to the destination than a higher cost does.",
-"FF02::5",
-"FE80::42",
-"networks reachable in other areas",
-"R3 is DR for segment A.",
-"R5 is BDR for segment B.",
-"R3 is DR for segment B.",
-"virtual link",
-"Use the default-information originate command on R0-A.",
-"The R1 dead timer expires between hello packets from R2.",
-"The EtherChannel will remain functional.",
-"SW1: on\nSW2: on",
-"The packets are sent as unicast.",
-"The packets are unreliable.",
-"61440",
-"HSRP uses active and standby routers.",
-"alternate, designated, root, root",
-"S2 can become root bridge if S1 fails.",
-"S1 will automatically adjust the priority to be the lowest",
-"The difference between type 1 and type 2 is in the way the cost of the route is being calculated.",
-"4",
-"The best alternative backup route is immediately inserted into the routing table.",
-"It supports IPv6 and IPv4 addressing.",
-"It disables redundant paths to eliminate Layer 2 loops.",
-"when a network contains discontiguous network addresses",
-"ability to build a routing table",
-"Routes within an area are summarized by the ABR.",
-"ABRs advertise the summarized routes into the backbone.",
-"There is one feasible successor to network 192.168.1.8/30.",
-"The neighbor 172.16.6.1 meets the feasibility condition to reach the 192.168.1.0/24 network.",
-"autonomous system boundary router",
-"area border router",
-"EIGRP query messages are being sent to other routers requesting paths to this network.",
-"RouterA(config-router)# network 192.168.2.0 0.0.0.255 area 0",
-"RouterA(config)# router ospf 1",
-"R4 is BDR for segment B.",
-"R5 is DR for segment B.",
-"R2 is BDR for segment A.",
-"Ports listen and learn before going into the forwarding state.",
-"to influence the DR/BDR election process",
-"Any feasible successor routes to the same destination network with a metric, equal to or less than 3 times that of the successor, will be installed in the routing table.",
-"source IP to destination IP",
-"source MAC to destination MAC",
-"It functions as a process ID in the operation of the router.",
-"show running-config",
-"show ip interface",
-"Classful routing protocols do not send subnet mask information in their routing updates.",
-"Configure either trunk port in the dynamic desirable mode.",
-"STP treats all interfaces in a bundle as a single logical link.",
-"R1-R3-R4-R5-R6-R7",
-"SW3 will become the root bridge.",
-"SW4 will get a port blocked.",
-"show ipv6 protocols",
-"Hello",
-"fa0/13",
-"fa0/21",
-"fa0/10",
-"the highest IPv4 address on an active interface",
-"Reset the switch VTP revision number to 0.",
-"Configure the correct VTP domain name and password on the new switch.",
-"Add the network 192.168.10.0 0.0.0.255 area 0 command to router R1 and remove the network 192.168.10.1 0.0.0.0 area 0 command.",
-"Designated",
-"Root",
-"VLAN information",
-"Speed",
-"Full",
-"show interfaces",
-"EX",
-"The path that includes the fastest cumulative bandwidth links.",
-"Reliable Transport Protocol",
-"to discover neighbors and build adjacencies between them",
-"VLAN configuration",
-"The failure of a switch block will not impact all end users.",
-"the interface IPv6 link-local address",
-"O",
-"routers that have the same link-state information in their LSDBs",
-"autonomous system number",
-"metric parameters",
-"when the connection to the successor of the destination network fails and there is no feasible successor available",
-"This switch will update its VLAN configuration when VLAN changes are made on a VTP server in the same domain.",
-"There is a risk that the switch may cause incorrect VLAN information to be sent through the domain.",
-"10.0.0.0/8",
-"more ports available for end devices",
-"reduced power and space requirements",
-"It is enabled by default on Cisco switches.",
-"Any switch port that has been configured with PortFast will be error-disabled if it receives a BPDU.",
-"EIGRP",
-"FE80::21E:BEFF:FEF4:5538",
-"drop the packets",
-"Cisco-proprietary enhancements to the legacy 802.1D, such as UplinkFast and BackboneFast, are compatible with RSTP.",
-"Reliable Transport Protocol (RTP)",
-"forwarding rate",
-"port density",
-"Power over Ethernet",
-"connect remote networks",
-"provide data traffic security",
-"S2",
-"S3 will set the priority value for VLAN 30 to 8192.",
-"MAC address of the virtual router",
-"creating one logical link by using multiple physical links between two LAN switches ",
-"desirable",
-"auto",
-"All the interfaces need to work at the same speed. ",
-"All the interfaces need to be working in the same duplex mode.",
-"The EtherChannel is down. ",
-"The port channel ID is 2.",
-"Clustering mode must be enabled on the APs.",
-"The APs have to be connected on the same network segment.",
-"Add another access point.",
-"ad hoc mode",
-"transmitting a probe request",
-"receiving a broadcast beacon frame",
-"open",
-"WPA2 with AES",
-"Split the wireless traffic between the 802.11n 2.4 GHz band and the 5 GHz band.",
-"ip ospf message-digest-key 1 md5 1C34dE",
-"area 0 authentication message-digest",
-"R1 or R2 does not have a network statement for the 172.16.100.0 network.",
-"Use MD5 authentication.",
-"Use the passive-interface command on LAN interfaces that are connected only to end-user devices.",
-"Enable the OSPFv3 routing process on the interface connected to the remote LAN.",
-"There is a problem with the OSPFv3 adjacency between the local router and the router that is using the neighbor ID 2.2.2.2.",
-"when the router has interfaces in different areas",
-"type 5",
-"This network was learned through summary LSAs from an ABR.",
-"There are no interarea routes in the routing table for network 192.168.1.0.",
-"only when necessary",
-"as the autonomous system number",
-"show interfaces",
-"delay",
-"bandwidth",
-"The link-local addresses of neighbor routers interfaces are configured manually.",
-"on a per-destination basis",
-"The keychain for EIGRP authentication must be configured on the interfaces. ",
-"Configure both routers with the same EIGRP autonomous system number.",
-"Verify connectivity between the router and TFTP server using the ping command. ",
-"Verify that there is enough flash memory for the new Cisco IOS image using the show flash command.",
-"There is sufficient space in flash memory.",
-"ping 10.10.10.2",
-"It is a key for enabling an IOS feature set.",
-"IPBase",
-"The Evaluation Right-To-Use license for the Security technology package is activated.",
-"License Type: Permanent",
-"License State: Active, In Use",
-"The IOS version 15 license key is unique to each device, whereas the IOS version 12 license key is not device specific.",
-"The Evaluation Right-To-Use license for the Security technology package is activated.",
-"This is the normal behavior for a Layer 2 network.",
-"Redundant links should be physically removed until the STP instance is repaired.",
-"GLBP",
-"The 5 GHz band has more channels and is less crowded than the 2.4 GHz band, which makes it more suited to streaming multimedia.",
-"WPA2 Enterprise",
-"R1 is participating in multiarea OSPF.",
-"R1 is the distribution point for the routers that are attached to the 10.0.0.4 network.",
-"OFDM",
-"a common key configured with the key-string command inside a key chain",
-"any interfaces on the router that are configured as passive",
-"any ACLs that are affecting the EIGRP routing process ",
-"networks that are unadvertised by the EIGRP routing protocol",
-"root port",
-"ping 10.10.10.2",
-"LACP",
-"The EtherChannel is in use and functional as indicated by the SU and P flags in the command output.",
-"15.1M",
-"add alternate physical paths for data to traverse the network",
-"The AS number must be the same on R1 and R2.",
-"The Evaluation Right-To-Use license for the Security technology package is activated.",
-"ipv6 unicast-routing",
-"the role of the malfunctioning device",
-"The IOS version 15 license key is unique to each device, whereas the IOS version 12 license key is not device specific.",
-"IOS version 12.4(20)T1 is a mainline release, whereas IOS version 15.1(1)T1 is a new feature release.",
-"S1 will automatically adjust the priority to be the lowest.",
-"S2 can become root bridge if S1 fails.",
-"continually purchase backup equipment for the network",
-"Two auto modes cannot form a bundle.",
-"The channel group is inconsistent.",
-"You’ve made it!",
-"The EtherChannel will remain functional.",
-"a direct connection to the console or AUX port",
-"a terminal emulation client",
-"The Evaluation Right-To-Use license for the Security technology package is activated.",
-"Restart the router and verify that the new image starts successfully.",
-"The AS number must be the same on R1 and R2.",
-"to provide increased network security",
-"to avoid unnecessary update traffic ",
-"Bandwidth Prioritization",
-"an external route that is advertised by an ASBR",
-"It provides regular bug fix maintenance rebuilds, plus critical fix support for network-affecting bugs.",
-"INTEROPERABILITY IN MULTI-VENDOR ENVIRONMENTS",
-"VRRPv3 SUPPORTS USAGE OF IPv4 and IPv6",
-"IMPROVE SCALABILITY THROUGH USE OF VRRS PATHWAYS",
-"If adjacencies are displayed after the use of the show ipv6 eigrp neighbors command, then EIGRP authentication was successful.",
-"S3 will set the priority value for VLAN 30 to 8192",
-"Broadcast frames are transmitted indefinitely.",
-"The Mac address table becomes unstable.",
-"The participating interfaces must be assigned the same VLAN number on both switches.",
-"the IP Base license",
-"No router IDs are configured on the routers.",
-"Both EIGRP for IPv4 and EIGRP for IPv6 support unequal cost load balancing.",
-"It is a free software application that helps network administrators rapidly deploy multiple Cisco software licenses across their networks.",
-"passive",
-"The SwA port is configured as a trunk port and the SwB port is configured as an access port.",
-"802.11g",
-"176",
-"It scales well in both small and large networks.",
-"ieee"];
-var option = document.getElementsByClassName("mattext"); //ai-option
-for(i = 0;i<option.length;i++) {
-  for(j = 0;j<answers.length;j++) {
-    if(option[i].innerHTML.replace("<b>","").replace("</b>","")==answers[j]){
-      option[i].style.cursor = "wait";
-      break;
-    }
-  }
-}
-
-
-</pre><center>-->
-
-  <table align="center">
-    <tr>
-      <td style="width:300px;padding:10px;vertical-align:top;"><b>t</b></td>
-      <td style="width:300px;padding:10px;vertical-align:top;"><b>g</b></td>
-      <td style="width:300px;padding:10px;vertical-align:top;"><b>?</b></td>
-    </tr>
-
-    <tr>
-      <td style="width:300px;padding:10px;vertical-align:top;">
-        <p><a href="https://melnicek.github.io/win10/win10.html">win10 update</a></p>
-        <p><a href="#">bsod</a></p>
-        <p><a href="#">linux</a></p>
-        <p><a href="https://melnicek.github.io/ransomware/jester.html">mr. robot</a></p>
-      </td>
-
-      <td style="width:300px;padding:10px;vertical-align:top;">
-        <p><a href="https://github.com/melnicek">github.com</a></p>
-        <p><a href="https://github.com/melnicek">github.com</a></p>
-        <p><a href="https://github.com/melnicek">github.com</a></p>
-        <p><a href="https://github.com/melnicek">github.com</a></p>
-      </td>
-      
-      <td style="width:300px;padding:10px;vertical-align:top;">
-        <p><a href="./usage.txt">usefull commands</a></p>
-        <p><a href="index.js">js</a></p>
-        <p><a href="#">placeholder/a></p>
-        <p><a href="#">placeholder</a></p>
-      </td>
-    </tr>
-  </table>
-
-</body>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+      <div class="container">
+        <div class="row my-4">
+          <div class="col-6">
+            <h2>Cerberus</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere perspiciatis, quibusdam possimus dolores iure delectus maiores repellendus. Accusamus nihil illo ad odio, repellat, laboriosam aperiam repellendus nesciunt maiores, eum voluptates.</p>
+          </div>
+          <div class="col-6">
+            <img src="http://placehold.it/700x400" alt="" width="100%">
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col-6"> 
+            <img src="http://placehold.it/700x400" alt="" width="100%">
+          </div>
+          <div class="col-6">
+            <h2>MOUREZ s.r.o.</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere perspiciatis, quibusdam possimus dolores iure delectus maiores repellendus. Accusamus nihil illo ad odio, repellat, laboriosam aperiam repellendus nesciunt maiores, eum voluptates.</p>
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col-6">
+            <h2>CCNA netacad toolkit</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere perspiciatis, quibusdam possimus dolores iure delectus maiores repellendus. Accusamus nihil illo ad odio, repellat, laboriosam aperiam repellendus nesciunt maiores, eum voluptates.</p>
+          </div>
+          <div class="col-6">
+            <img src="http://placehold.it/700x400" alt="" width="100%">
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col-6">
+            <img src="http://placehold.it/700x400" alt="" width="100%"></div>
+          <div class="col-6">
+            <h2>BB84 POC</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere perspiciatis, quibusdam possimus dolores iure delectus maiores repellendus. Accusamus nihil illo ad odio, repellat, laboriosam aperiam repellendus nesciunt maiores, eum voluptates.</p>  
+          </div>
+        </div>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>
