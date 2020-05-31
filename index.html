@@ -1,20 +1,66 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>tajtl</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-      lol
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-</html>
+<!doctype html><html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>notes.ctb</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+  <script></script>
+</head>
+<body><div class="two-panels">
+<div class="tree-panel">
+<div class="tree">
+<p>
+<strong>Index</strong></br>
+<button onclick="expandAllSubtrees()">Expand All</button> <button onclick="collapseAllSubtrees()">Collapse All</button>
+</p>
+<ul class="outermost">
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('Operating_Systems.html')">Operating Systems</a></li>
+<ul class="subtree">
+<li class="leaf"><a href="#" onclick="changeFrame('Operating_Systems--Linux.html')">Linux</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Operating_Systems--Windows.html')">Windows</a></li>
+</ul>
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('Networking.html')">Networking</a></li>
+<ul class="subtree">
+<li class="leaf"><a href="#" onclick="changeFrame('Networking--IPv4,_IPv6_tools.html')">IPv4, IPv6 tools</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Networking--MAC_addr.html')">MAC addr</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Networking--Routing_table.html')">Routing table</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Networking--ARP_cache.html')">ARP cache</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Networking--Listening_ports.html')">Listening ports</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Networking--DNS.html')">DNS</a></li>
+</ul>
+<li class="leaf"><a href="#" onclick="changeFrame('Information_gathering.html')">Information gathering</a></li>
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('Wi-Fi.html')">Wi-Fi</a></li>
+<ul class="subtree">
+<li class="leaf"><a href="#" onclick="changeFrame('Wi-Fi--aircrack-ng.html')">aircrack-ng</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Wi-Fi--wifite.html')">wifite</a></li>
+</ul>
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('Mapping_network.html')">Mapping network</a></li>
+<ul class="subtree">
+<li class="leaf"><a href="#" onclick="changeFrame('Mapping_network--Finding_live_hosts.html')">Finding live hosts</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Mapping_network--Enumerating_windows_shares.html')">Enumerating windows shares</a></li>
+</ul>
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('WebApp_Attacks.html')">WebApp Attacks</a></li>
+<ul class="subtree">
+<li class="leaf"><a href="#" onclick="changeFrame('WebApp_Attacks--Fingerprinting.html')">Fingerprinting</a></li>
+</ul>
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('Ports.html')">Ports</a></li>
+<ul class="subtree">
+<li class="leaf"><a href="#" onclick="changeFrame('Ports--88_-_Kerberos.html')">88 - Kerberos</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Ports--135_-_RPC.html')">135 - RPC</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Ports--139,445_-SMB.html')">139,445 -SMB</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Ports--389_-_LDAP.html')">389 - LDAP</a></li>
+<li class="leaf"><a href="#" onclick="changeFrame('Ports--5985_-_PS_remoting.html')">5985 - PS remoting</a></li>
+</ul>
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('PrivEsc.html')">PrivEsc</a></li>
+<ul class="subtree">
+<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('PrivEsc--Windows.html')">Windows</a></li>
+<ul class="subtree">
+<li class="leaf"><a href="#" onclick="changeFrame('PrivEsc--Windows--DLL.html')">DLL</a></li>
+</ul>
+<li class="leaf"><a href="#" onclick="changeFrame('PrivEsc--Linux.html')">Linux</a></li>
+</ul>
+</ul>
+</div>
+</div>
+<div class="page-panel"><iframe src="" id="page_frame"></iframe></div></div><script src="res/script3.js"></script>
+</body></html>
