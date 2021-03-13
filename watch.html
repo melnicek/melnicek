@@ -1,10 +1,7 @@
-<iframe id="vid" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/9Tl3OmwrSaM" frameborder="0" allowfullscreen></iframe>
+<iframe id="vid" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
 
 <script>
-//?v=9Tl3OmwrSaM
   let params = window.location.search.substr(1)
   let video = params.split('=')[1]
-  let url = "https://www.youtube-nocookie.com/embed/" + video
-  document.getElementById("vid").src = url
-  alert(url)
+  document.getElementById("vid").src = "https://www.youtube-nocookie.com/embed/" + video
 </script>
