@@ -1,4 +1,10 @@
 <p id="chance"></p>
+<form action="" method="get">
+    <input type="hidden" name="remaining" value="" id="remaining">
+    <button type="submit">Vyvolal ineho</button>
+</form>
 <script>
-    document.getElementById("chance").text = window.location.search.substr(1);
+    let rem = window.location.search.substr(1).split("=")[1];
+    document.getElementById("chance").innerHTML = "Sanca ze ta vyvola: " + Math.round(100 / rem) + "%";
+    document.getElementById("remaining").value = rem - 1;
 </script>
