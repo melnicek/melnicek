@@ -12,3 +12,13 @@ SecLists/Discovery/Web-Content/directory-list-2.3-small.txt
 SecLists/Discovery/Web-Content/web-extensions.txt
 SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 SecLists/Discovery/Web-Content/burp-parameter-names.txt
+
+smbclient -L //RHOST
+smbclient //RHOST/SHARE
+smbclient -U '' -N //RHOST/SHARE
+
+rpcclient RHOST
+rpcclient -U '' -N RHOST
+> enumdomusers
+
+gobuster dir -w WORDLIST -u URL -o OUTFILE
