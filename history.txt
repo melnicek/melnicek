@@ -15,6 +15,7 @@ smbclient //RHOST/SHARE
 smbclient -U '' -N //RHOST/SHARE
 smbclient -U USER //RHOST/SHARE
 
+sudo mount -t cifs -o 'username=USER,password=PASS' //RHOST/SHARE /mnt/FOLDER
 
 rpcclient RHOST
 rpcclient -U '' -N RHOST
