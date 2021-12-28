@@ -13,6 +13,8 @@ SecLists/Discovery/Web-Content/burp-parameter-names.txt
 smbclient -L //RHOST
 smbclient //RHOST/SHARE
 smbclient -U '' -N //RHOST/SHARE
+smbclient -U USER //RHOST/SHARE
+
 
 rpcclient RHOST
 rpcclient -U '' -N RHOST
