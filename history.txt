@@ -49,3 +49,11 @@ xterm
 cp /bin/bash /tmp/yz
 chmod +s /tmp/yz
 /tmp/yz -p
+
+sudo tcpdump -D
+sudo tcpdump -i INTERFACE
+sudo tcpdump -i INTERFACE -e
+sudo tcpdump -i INTERFACE -X
+sudo tcpdump -i INTERFACE host HOST
+sudo tcpdump -i INTERFACE src host HOST
+sudo tcpdump -i INTERFACE tcp src port PORT
