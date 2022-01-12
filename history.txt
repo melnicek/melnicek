@@ -1,9 +1,9 @@
 https://github.com/melnicek/melnicek.github.io/edit/master/history.txt
 
-ffuf -w wordlist:FUZZ -u http://TARGET/FUZZ
-ffuf -w wordlist:FUZZ -u http://TARGET/ -H 'Host: FUZZ.TARGET' -fs xxx
-ffuf -w wordlist:FUZZ -u http://TARGET/admin/admin.php?id=FUZZ -fs xxx
-ffuf -w wordlist:FUZZ -u http://TARGET/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
+ffuf -w WORDLIST -u http://TARGET/FUZZ
+ffuf -w WORDLIST -u http://TARGET/ -H 'Host: FUZZ.TARGET'
+ffuf -w WORDLIST -u http://TARGET/?id=FUZZ
+ffuf -w WORDLIST -u http://TARGET/ -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
 
 SecLists/Discovery/Web-Content/raft-large-words.txt
 SecLists/Discovery/Web-Content/raft-large-directories.txt
