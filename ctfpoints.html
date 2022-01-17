@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ctfpoints</title>
+</head>
+<body>
+    <p><input id="weight" type="text"placeholder="weight"></p>
+    <p><input id="total_teams" type="text" placeholder="total_teams">/<input id="best_points" type="text" placeholder="best_points"></p>
+    <p><input id="team_place" type="text"placeholder="team_place">/<input id="team_points" type="text"placeholder="team_points"></p>
+    <button onclick="calculate()">Calculate</button>
+    <hr>
+    <p>CTFTime points: <b id="points"></b></p>
+    <script>
+    function calculate() {
+      const weight = document.getElementById("weight").value;
+      const total_teams = document.getElementById("total_teams").value;
+      const best_points = document.getElementById("best_points").value;
+      const team_place = document.getElementById("team_place").value;
+      const team_points = document.getElementById("team_points").value;
+
+      const points_coef = team_points / best_points;
+      const place_coef = 1/team_place;
+      const rating = ((points_coef + place_coef) * weight)/(1/(1+(team_place/total_teams)));
+      document.getElementById("points").innerHTML = rating;
+    }
+    </script>
+</body>
+</html>
