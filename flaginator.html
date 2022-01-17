@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>flaginator</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<input type="text" id="prefix" value="flag" placeholder="flag">
+	<input type="text" id="string" placeholder="this is only a test flag!!" autofocus>
+	<button onclick="flaginate()">Flaginate</button>
+	<hr>
+	<p id="result">flag{TH15_IS_0nly_A_tEst_flag!!}</p>
+
+	<script type="text/javascript">
+		function flaginate_char(char) {
+			let substitutions = ["Aa4", "Bb", "Cc", "Dd", "Ee3", "Ff", "Gg", "Hh", "Ii1", "Jj", "Kk", "Ll", "Mm", "Nn", "Oo0", "Pp", "Qq", "Rr", "Ss5", "Tt", "Uu", "Vv", "Ww", "Xx", "Yy", "Zz2"];
+			for (var i = 0; i < substitutions.length; i++) {
+				if ( substitutions[i].indexOf(char) >= 0 ) {
+					return substitutions[i][Math.floor(Math.random() * substitutions[i].length)];
+				} 
+			}
+			if ( char === " " || char === "_" ) {
+				return "_";
+			}
+			return char;
+		}
+		function flaginate() {
+			let prefix = document.getElementById("prefix").value;
+			let string = document.getElementById("string").value;
+			let result = "";
+			for (var i = 0; i < string.length; i++) {
+				result += flaginate_char(string[i]);
+			}
+			document.getElementById("result").innerHTML = prefix + "{" + result + "}";
+		}
+	</script>
+</body>
+</html>
