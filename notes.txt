@@ -4,6 +4,7 @@ rustscan -a `cat ip` -- -sV -oN nmap; rustscan -a `cat ip` -- -sVC -oN nmap-scri
 
 ffuf -w ~/wordlists/raft.txt -o ffuf-dir -u http://`cat ip`/FUZZ
 ffuf -w ~/wordlists/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -o ffuf-sub -u http://`cat ip`/ -H 'Host: FUZZ.DOMAIN'
+
 ffuf -w WORDLIST -u http://`cat ip`/?id=FUZZ
 ffuf -w WORDLIST -u http://`cat ip`/ -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
 
