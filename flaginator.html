@@ -17,7 +17,7 @@
 		function flaginate_char(char) {
 			let substitutions = ["Aa4", "Bb", "Cc", "Dd", "Ee3", "Ff", "Gg", "Hh", "Ii1", "Jj", "Kk", "Ll", "Mm", "Nn", "Oo0", "Pp", "Qq", "Rr", "Ss5", "Tt", "Uu", "Vv", "Ww", "Xx", "Yy", "Zz2"];
 			for (var i = 0; i < substitutions.length; i++) {
-				if ( substitutions[i].indexOf(char) >= 0 && Math.random() < 0.5) {
+				if ( substitutions[i].indexOf(char) >= 0) {
 					return substitutions[i][Math.floor(Math.random() * substitutions[i].length)];
 				} 
 			}
