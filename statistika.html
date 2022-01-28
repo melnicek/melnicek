@@ -1,0 +1,34 @@
+<textarea id="textareabox" rows="32" cols="128"></textarea>
+<br>
+<input type="button" value="Get Text" onclick="calculate()" />
+<p>
+    Priemer: <b id="result"></b>
+</p>
+<p>
+    <a
+        href="https://is.muni.cz/auth/student/poznamkove_bloky_statistika">https://is.muni.cz/auth/student/poznamkove_bloky_statistika</a>
+</p>
+
+<script>
+    function calculate() {
+        const text = document.getElementById("textareabox").value;
+        const lines = text.split("\n");
+        let sum = 0;
+        let count = 0;
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+            let numbers = line.split("\t");
+
+            for (let j = 0; j < numbers.length; j += 2) {
+                let poradie = numbers[j];
+                let body = numbers[j + 1];
+                if (poradie !== "" && body !== "") {
+                    count += 1;
+                    sum += Number.parseFloat(body);
+                    console.log(sum);
+                }
+            }
+        }
+        document.getElementById("result").innerHTML = (Number.parseFloat(sum) / Number.parseFloat(count));
+    }
+</script>
