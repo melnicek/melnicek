@@ -5,8 +5,8 @@ sudo nmap -sU `cat ip` -oN nmap-udp
 
 ################################################################ WEB
 
-ffuf -w ~/wordlists/raft.txt -of md -o ffuf-dir -u http://`cat ip`/FUZZ
-ffuf -w ~/wordlists/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -of md -o ffuf-sub -u http://`cat ip`/ -H 'Host: FUZZ.DOMAIN'
+ffuf -w ~/wordlists/raft.txt -u http://`cat ip`/FUZZ -s | tee ffuf.txt
+ffuf -w ~/wordlists/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -u http://`cat ip`/ -H 'Host: FUZZ.DOMAIN' -s | tee ffuf-sub.txt
 
 ffuf -w WORDLIST -u http://`cat ip`/?id=FUZZ
 ffuf -w WORDLIST -u http://`cat ip`/ -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
