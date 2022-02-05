@@ -1,20 +1,20 @@
 https://github.com/melnicek/melnicek.github.io/edit/master/notes.txt
 
-rustscan -a $IP -- -sVC -oN nmap
+rustscan -a $IP -- -sVC -oN nmap-tcp
 sudo nmap -sU $IP -oN nmap-udp
 
 ################################################################ WEB
 
-ffuf -w ~/wordlists/raft.txt -u http://$IP/FUZZ -s | tee ffuf.txt
-ffuf -w ~/wordlists/subdomains.txt -u http://$IP/ -H 'Host: FUZZ.DOMAIN' -s | tee ffuf-sub.txt
+ffuf -w ~/wordlists/raft.txt -u http://$IP/FUZZ
+ffuf -w ~/wordlists/subdomains.txt -u http://$IP/ -H 'Host: FUZZ.DOMAIN'
 
 ffuf -w WORDLIST -u http://$IP/?id=FUZZ
 ffuf -w WORDLIST -u http://$IP/ -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
 
-gobuster dir -w WORDLIST -u URL -o OUTFILE
-
 nikto -host URL
 nikto -Plugins 'PLUGIN' -host URL
+
+wpscan...
 
 sqlmap -r REQFILE --batch
 sqlmap -i URL -p PARAMETER --cookie="COOKIE" --batch
@@ -34,7 +34,7 @@ crackmapexec smb $IP -u '' -p '' --shares
 crackmapexec smb $IP -u users.txt -p pass.txt --shares
 crackmapexec smb $IP -u users.txt -p pass.txt --continue-on-succes
 
-evil-winrm -u USER -p PASS  -i $IP
+evil-winrm -u USER -p PASS -i $IP
 
 snmp-check $IP
 snmpwalk -v1 -c public $IP
