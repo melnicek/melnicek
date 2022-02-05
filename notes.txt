@@ -34,6 +34,8 @@ crackmapexec smb $IP -u '' -p '' --shares
 crackmapexec smb $IP -u users.txt -p pass.txt --shares
 crackmapexec smb $IP -u users.txt -p pass.txt --continue-on-succes
 
+evil-winrm -u USER -p PASS  -i $IP
+
 snmp-check $IP
 snmpwalk -v1 -c public $IP
 snmpwalk -v2c -c public $IP
