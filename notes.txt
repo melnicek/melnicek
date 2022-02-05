@@ -1,15 +1,15 @@
 https://github.com/melnicek/melnicek.github.io/edit/master/notes.txt
 
-rustscan -a `cat ip` -- -sVC -oN nmap
-sudo nmap -sU `cat ip` -oN nmap-udp
+rustscan -a $IP -- -sVC -oN nmap
+sudo nmap -sU $IP -oN nmap-udp
 
 ################################################################ WEB
 
-ffuf -w ~/wordlists/raft.txt -u http://`cat ip`/FUZZ -s | tee ffuf.txt
-ffuf -w ~/wordlists/subdomains.txt -u http://`cat ip`/ -H 'Host: FUZZ.DOMAIN' -s | tee ffuf-sub.txt
+ffuf -w ~/wordlists/raft.txt -u http://$IP/FUZZ -s | tee ffuf.txt
+ffuf -w ~/wordlists/subdomains.txt -u http://$IP/ -H 'Host: FUZZ.DOMAIN' -s | tee ffuf-sub.txt
 
-ffuf -w WORDLIST -u http://`cat ip`/?id=FUZZ
-ffuf -w WORDLIST -u http://`cat ip`/ -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
+ffuf -w WORDLIST -u http://$IP/?id=FUZZ
+ffuf -w WORDLIST -u http://$IP/ -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded'
 
 gobuster dir -w WORDLIST -u URL -o OUTFILE
 
@@ -30,19 +30,18 @@ https://github.com/mthbernardes/LFI-Enum.git
 
 ################################################################ INITIAL COMPROMISE
 
-smbclient -L //RHOST
-smbclient //RHOST/SHARE
-smbclient -U '' -N //RHOST/SHARE
-smbclient -U USER //RHOST/SHARE
+crackmapexec smb $IP -u '' -p '' --shares
+crackmapexec smb $IP -u users.txt -p pass.txt --shares
+crackmapexec smb $IP -u users.txt -p pass.txt --continue-on-succes
 
-snmp-check `cat ip`
-snmpwalk -v1 -c public `cat ip`
-snmpwalk -v2c -c public `cat ip`
+snmp-check $IP
+snmpwalk -v1 -c public $IP
+snmpwalk -v2c -c public $IP
 
 sudo mount -t cifs -o 'username=USER,password=PASS' //RHOST/SHARE /mnt/FOLDER
 
-rpcclient `cat ip`
-rpcclient -U '' -N `cat ip`
+rpcclient -U '' -N $IP
+> querydispinfo
 > enumdomusers
 
 git clone https://github.com/SecureAuthCorp/impacket
