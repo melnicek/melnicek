@@ -105,7 +105,6 @@
 		}
 	</script>
     <hr>
-    <button id="refresh">regenerate</button>
     <p id="username"></p>
     <p id="password"></p>
     <script>
@@ -129,14 +128,10 @@
                 offset++;
             }
             return names.substring(number, offset);
-        }
-        function tmp() {
-            const name = getName() + " " + getName();
-            document.getElementById("username").innerHTML = name.toLowerCase().replace(" ",".");
-            document.getElementById("password").innerHTML = makealphanum(32);
-        }
-        document.getElementById("refresh").onclick = tmp();
-	    tmp();
+	    }
+	    const name = getName() + " " + getName();
+	    document.getElementById("username").innerHTML = name.toLowerCase().replace(" ",".");
+	    document.getElementById("password").innerHTML = makealphanum(32);
     </script>
     <hr>
     <p>
